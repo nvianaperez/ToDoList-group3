@@ -32,7 +32,7 @@ export default {
     </section>
     <section id="tasks-container">
       <ul>
-        <li v-for="item in tasks">
+        <li v-for="item in tasks" :key="{item}">
           <div>
             <div>
               <input v-model="item.title" disabled="true" />
@@ -40,8 +40,8 @@ export default {
             </div>
             <div>
               <input type="checkbox" />
-              <button @click="">Delete</button>
-              <button @click="">Edit</button>
+              <button >Delete</button>
+              <button >Edit</button>
             </div>
           </div>
         </li>
