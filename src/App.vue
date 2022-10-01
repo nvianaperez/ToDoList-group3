@@ -1,15 +1,21 @@
 <template>
   <div id="app">
   <todo-app></todo-app>
+  <exercices></exercices>
+  <forms></forms>
 </div>
 </template>
 <script>
   import TodoApp from './components/TodoApp.vue'
+import Exercices from './components/Exercices.vue';
+import Forms from './components/forms.vue';
   export default {
     name: 'App',
     components: {
-      TodoApp
-    }
+    TodoApp,
+    Exercices,
+    Forms
+}
   }
 </script>
 <!-- <script>

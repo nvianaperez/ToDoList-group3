@@ -72,6 +72,7 @@
 
     </div>
 
+
 </template>
 
 <script>
@@ -107,7 +108,10 @@ export default {
                     completed: false,
                     editing: false,
                 }
-            ]
+            ],
+
+
+
         }
 
     },
@@ -170,8 +174,11 @@ export default {
 
         changeStatus(index) {
             this.tasks[index].status = !this.tasks[index].status;
-        }
-    }
+        },
+
+        
+    },
+
 };
 
 
