@@ -3,18 +3,21 @@
   <todo-app></todo-app>
   <exercices></exercices>
   <forms></forms>
+  <searcher></searcher>
 </div>
 </template>
 <script>
   import TodoApp from './components/TodoApp.vue'
 import Exercices from './components/Exercices.vue';
 import Forms from './components/forms.vue';
+import Searcher from './components/searcher.vue';
   export default {
     name: 'App',
     components: {
     TodoApp,
     Exercices,
-    Forms
+    Forms,
+    Searcher,
 }
   }
 </script>
