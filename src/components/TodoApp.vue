@@ -81,10 +81,18 @@
             v-else
             type="text"
             v-model="task.name"
-            @keyup.enter="finishEdit(task)"
+            @keyup.enter="finishEdit($event, index, 'task')"
+            @blur="finishEdit($event, index, 'task')"
           />
         </div>
-        <div class="">{{ task.description }}</div>
+        <div class="" v-if="!task.editing">{{ task.description }}</div>
+        <input
+          v-else
+          type="text"
+          v-model="task.description"
+          @keyup.enter="finishEdit($event, index, 'description')"
+          @blur="finishEdit($event, index, 'description')"
+        />
       </div>
       <input type="checkbox" class="col-1" @change="changeStatus(index)" />
 
@@ -176,8 +184,8 @@ export default {
       task.editing = true;
     },
 
-    finishEdit(event, index) {
-      this.tasks[index].name = event.srcElement.value;
+    finishEdit(event, index, tipos) {
+      this.tasks[index][tipos] = event.srcElement.value;
       this.tasks[index].editing = false;
     },
 
