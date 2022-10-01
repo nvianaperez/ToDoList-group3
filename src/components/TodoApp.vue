@@ -1,5 +1,5 @@
 <!--***************TEMPLATE***********************-->
-<template>
+<template class="wrap-container">
   <header class="container">
     <h2 class="text-center mt-5 md-3" id="header">
       Vue TODO APP- GROUP 3
@@ -135,6 +135,8 @@ export default {
           editing: false,
         },
       ],
+      urlImg:
+        "https://biteable.com/content/uploads/2018/01/royalty-free-images-cover_social-media-ls-1200x630-c-center.jpg",
     };
   },
 
@@ -199,9 +201,14 @@ export default {
 <style>
 #newTask {
   margin: 20px;
-  background-color: #5d68b1;
+  /* background-color: #5d68b1; */
   padding: 50px;
 }
+
+/* #app {
+  background-image: url("https://biteable.com/content/uploads/2018/01/royalty-free-images-cover_social-media-ls-1200x630-c-center.jpg");
+  opacity: 0.3;
+} */
 .transparent {
 }
 </style>
