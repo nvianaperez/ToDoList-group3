@@ -1,136 +1,136 @@
 <!--***************TEMPLATE***********************-->
 <template>
-  <div class="container">
+  <header class="container">
     <h2 class="text-center mt-5 md-3" id="header">
       Vue TODO APP- GROUP 3
       <font-awesome-icon icon="fa-solid fa-user-secret" />
     </h2>
+  </header>
 
-    <!-- CAJITA DONDE INTRODUCIR LA NUEVA TAREA CON SU BOTON SUBMIT -->
+  <!-- CAJITA DONDE INTRODUCIR LA NUEVA TAREA CON SU BOTON SUBMIT -->
 
-    <div class="d-flex flex-column" id="newTask">
-      <input
-        v-model="task"
-        type=" text"
-        placeholder=" Add new task"
-        class="form-control"
-      />
-      <input
-        v-model="description"
-        type=" textarea"
-        placeholder=" Please specify the task"
-        class="form-control"
-      />
-      <button @click="submitTask" class="btn btn-primary rounded-0 btn-sm">
-        + SUBMIT
-      </button>
-    </div>
+  <section class="d-flex flex-column" id="newTask">
+    <input
+      v-model="task"
+      type=" text"
+      placeholder=" Add new task"
+      class="form-control"
+    />
+    <input
+      v-model="description"
+      type=" textarea"
+      placeholder=" Please specify the task"
+      class="form-control"
+    />
+    <button @click="submitTask" class="btn btn-primary rounded-0 btn-sm">
+      + SUBMIT
+    </button>
+  </section>
 
-    <!-- CAJITA PARA BUSCAR TAREAS-->
-    <div class="container mt-2" id="search-filter">
-      <input
-        class="rounded mr-1 text-center border-info"
-        type="search"
-        placeholder="Search"
-      />
-      <span>
-        <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-      </span>
-    </div>
+  <!-- CAJITA PARA BUSCAR TAREAS-->
 
-    <!--CAJITA PARA FILTRAR MOSTRAR TAREAS NO COMPLETADAS-->
-    <!-- <div class="container mt-2 " id="tareas-no-completadas"> 
+  <section class="container mt-2 mb-3" id="search-filter">
+    <input
+      class="rounded mr-1 text-center border-info"
+      type="search"
+      placeholder="Search"
+    />
+    <span>
+      <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+    </span>
+  </section>
+
+  <!--CAJITA PARA FILTRAR MOSTRAR TAREAS NO COMPLETADAS-->
+  <!-- <div class="container mt-2 " id="tareas-no-completadas"> 
         <input class="rounded mr-1 text-center border-info" type="search" placeholder="Search" />
         <span><font-awesome-icon icon="fa-solid fa-magnifying-glass" />  </span>
         </div> -->
 
-    <!-- CAJITA QUE TE DICE SI HAY MÁS DE TRES CAJAS  new!-->
+  <!-- CAJITA QUE TE DICE SI HAY MÁS DE TRES CAJAS  new!-->
 
-    <!-- <span> {{numberTask}}</span> -->
+  <!-- <span> {{numberTask}}</span> -->
 
-    <!-- TASK TABLE -->
-    <!-- Conceptos utilizados:  **v-for**  **:key**  **{{}}**-->
+  <!-- TASK TABLE -->
+  <!-- Conceptos utilizados:  **v-for**  **:key**  **{{}}**-->
 
-    <!-- table content -->
-    <!-- VFOR  We can use to render a list of items based on an array// 
+  <!-- table content -->
+  <!-- VFOR  We can use to render a list of items based on an array// 
      for loop //The key attribute tells Vue how your data relates to the HTML elements
      it's rendering to the screen. When your data changes, Vue uses these keys to know which HTML elements
      to remove or update, and if it needs to create any new ones. -->
-    <div
-      v-for="(task, index) in tasks"
-      :key="task.id"
-      class="container-fluid row"
-      :style="{ backgroundColor: task.status ? '#6ad86a42' : '#ff6d534d' }"
-    >
-      <!-- V-IF V-ELSE  if task editing is false ( we are not editing), show the task into the span, else, show the imput)-->
-      <div class="col-2">
-        <div class="text-primary text-center" @click.capture="editTask(index)">
-          <font-awesome-icon icon="fa-solid fa-pencil" />
-        </div>
-        <p class="text-danger text-center" @click.capture="deleteTask(index)">
-          X
-        </p>
+  <section
+    class="form container-fluid row"
+    v-for="(task, index) in tasks"
+    :key="task.id"
+    :style="{ backgroundColor: task.status ? '#ff6d534d' : '#6ad86a42' }"
+  >
+    <div class="col-2">
+      <div class="text-primary text-center" @click.capture="editTask(index)">
+        <font-awesome-icon icon="fa-solid fa-pencil" />
       </div>
-      <!--This'll inject our task.name in our html-->
-      <div class="col-9">
-        <div class="">
-          <span v-if="!task.editing" @dblclick="editTask(task)"
-            >{{ task.name }}
-          </span>
-          <input
-            v-else
-            type="text"
-            v-model="task.name"
-            @keyup.enter="finishEdit($event, index, 'task')"
-            @blur="finishEdit($event, index, 'task')"
-          />
-        </div>
-        <div class="" v-if="!task.editing">{{ task.description }}</div>
+      <p class="text-danger text-center" @click.capture="deleteTask(index)">
+        X
+      </p>
+    </div>
+    <!--This'll inject our task.name in our html-->
+    <div class="col-9">
+      <div class="">
+        <span v-if="!task.editing" @dblclick="editTask(task)"
+          >{{ task.name }}
+        </span>
         <input
           v-else
           type="text"
-          v-model="task.description"
-          @keyup.enter="finishEdit($event, index, 'description')"
-          @blur="finishEdit($event, index, 'description')"
+          v-model="task.name"
+          @keyup.enter="finishEdit($event, index, 'task')"
+          @blur="finishEdit($event, index, 'task')"
         />
       </div>
-      <input type="checkbox" class="col-1" @change="changeStatus(index)" />
-
-      <!-- <div> <span @click="changeStatus(index)" >{{task.status}}</span></div> -->
+      <div class="" v-if="!task.editing">{{ task.description }}</div>
+      <input
+        v-else
+        type="text"
+        v-model="task.description"
+        @keyup.enter="finishEdit($event, index, 'description')"
+        @blur="finishEdit($event, index, 'description')"
+      />
     </div>
-  </div>
+    <input type="checkbox" class="col-1" @change="changeStatus(index)" />
+
+    <!-- <div> <span @click="changeStatus(index)" >{{task.status}}</span></div> -->
+  </section>
 </template>
 
 <script>
-import { faArrowsToDot } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsToDot } from "@fortawesome/free-solid-svg-icons";
 
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
     msg: String,
   },
 
   data() {
     return {
-      task: '',
-      taskStatus: ['to-do', 'finished'],
+      task: "",
+      taskStatus: ["to-do", "finished"],
       idforTask: 3,
 
       tasks: [
         {
           id: 1,
-          name: 'title task 1',
-          description: ' description task 1 ',
-          status: 'to-do',
+          name: "title task 1",
+          description: " description task 1 ",
+          status: "to-do",
           completed: false,
           editing: false,
         },
 
         {
           id: 2,
-          name: 'title task 2',
-          description: ' description task 2 ',
-          status: 'to-do',
+          name: "title task 2",
+          description: " description task 2 ",
+          status: "to-do",
           completed: false,
           editing: false,
         },
@@ -162,14 +162,14 @@ export default {
         id: this.idforTask,
         name: this.task,
         description: this.description,
-        status: 'to-do',
+        status: "to-do",
         completed: false,
         editing: false,
       });
 
       // when we add the new task the  input should be empty, the same with the imput description
-      this.task = '';
-      this.description = '';
+      this.task = "";
+      this.description = "";
 
       //We also want to increase the id
       this.idforTask++;
