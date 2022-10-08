@@ -233,8 +233,22 @@ export default {
   background-color: #5d68b1;
   padding: 50px;
 }
-.transparent {
+.container {
+  position: relative;
 }
+
+.container:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("https://www.google.com/search?q=imagenes+to+do&tbm=isch&ved=2ahUKEwj00f_v1dD6AhUSWxoKHTNRBUcQ2-cCegQIABAA&oq=imagenes+to+do&gs_lcp=CgNpbWcQAzIECCMQJ1AAWABgvAdoAHAAeACAAU-IAU-SAQExmAEAqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=BHJBY_S_CZK2abOilbgE&bih=968&biw=960&rlz=1C1GCEA_esES1024ES1024#imgrc=XUAfMHxflHqrVM");
+  height: 100%;
+  opacity: 0.4;
+  z-index: -1;
+}
+
 .checkbox-size {
   width: 20px;
   height: 20px;
