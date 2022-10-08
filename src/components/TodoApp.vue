@@ -1,4 +1,4 @@
-<!--***************TEMPLATE***********************-->
+<!--******************TEMPLATE***********************-->
 <template>
   <div class="container">
     <h2 class="text-center mt-5 md-3" id="header">
@@ -6,7 +6,7 @@
       <font-awesome-icon icon="fa-solid fa-user-secret" />
     </h2>
 
-    <!-- CAJITA DONDE INTRODUCIR LA NUEVA TAREA CON SU BOTON SUBMIT -->
+    <!---------- CAJITA DONDE INTRODUCIR LA NUEVA TAREA CON SU BOTON SUBMIT -->
 
     <div class="d-flex flex-column" id="newTask">
       <input
@@ -59,22 +59,31 @@
     <div
       v-for="(task, index) in tasks"
       :key="task.id"
-      class="container-fluid row"
+      class="container-fluid row mt-4 mx-5 col-11 rounded-2"
       :style="{ backgroundColor: task.status ? '#6ad86a42' : '#ff6d534d' }"
     >
       <!-- V-IF V-ELSE  if task editing is false ( we are not editing), show the task into the span, else, show the imput)-->
-      <div class="col-2">
-        <div class="text-primary text-center" @click.capture="editTask(index)">
-          <font-awesome-icon icon="fa-solid fa-pencil" />
+      <div class="col-2 mt-2 d-flex flex-column icons-wrapper">
+        <div
+          class="text-primary text-center icons"
+          @click.capture="editTask(index, 'name')"
+        >
+          <font-awesome-icon icon="fa-solid fa-pencil " />
         </div>
-        <p class="text-danger text-center" @click.capture="deleteTask(index)">
+        <p
+          class="text-danger text-center icons"
+          @click.capture="deleteTask(index)"
+        >
           X
         </p>
       </div>
       <!--This'll inject our task.name in our html-->
       <div class="col-9">
         <div class="">
-          <span v-if="!task.editing" @dblclick="editTask(task)"
+          <span
+            class="text-primary fs-4 col-9 description"
+            v-if="!task.editingName"
+            @dblclick="editTask(task, 'name')"
             >{{ task.name }}
           </span>
           <input
@@ -85,7 +94,13 @@
             @blur="finishEdit($event, index, 'task')"
           />
         </div>
-        <div class="" v-if="!task.editing">{{ task.description }}</div>
+        <div
+          class="text-secondary fs-6 description col-9"
+          v-if="!task.editingDescription"
+          @dblclick="editTask(task, 'description')"
+        >
+          {{ task.description }}
+        </div>
         <input
           v-else
           type="text"
@@ -94,7 +109,12 @@
           @blur="finishEdit($event, index, 'description')"
         />
       </div>
-      <input type="checkbox" class="col-1" @change="changeStatus(index)" />
+      <input
+        type="checkbox"
+        class="col-1"
+        style="height: 30px; margin-top: 20px"
+        @change="changeStatus(index)"
+      />
 
       <!-- <div> <span @click="changeStatus(index)" >{{task.status}}</span></div> -->
     </div>
@@ -123,7 +143,8 @@ export default {
           description: ' description task 1 ',
           status: 'to-do',
           completed: false,
-          editing: false,
+          editingName: false,
+          editingDescription: false,
         },
 
         {
@@ -132,7 +153,8 @@ export default {
           description: ' description task 2 ',
           status: 'to-do',
           completed: false,
-          editing: false,
+          editingName: false,
+          editingDescription: false,
         },
       ],
     };
@@ -164,7 +186,8 @@ export default {
         description: this.description,
         status: 'to-do',
         completed: false,
-        editing: false,
+        editingName: false,
+        editingDescription: false,
       });
 
       // when we add the new task the  input should be empty, the same with the imput description
@@ -179,14 +202,22 @@ export default {
       this.tasks.splice(index, 1);
     },
 
-    editTask(task) {
-      // alert('editTaskisworking');
-      task.editing = true;
+    editTask(task, tipos) {
+      if (tipos === 'description') {
+        task.editingDescription = true;
+      } else {
+        task.editingName = true;
+      }
     },
 
     finishEdit(event, index, tipos) {
-      this.tasks[index][tipos] = event.srcElement.value;
-      this.tasks[index].editing = false;
+      if (tipos === 'description') {
+        this.tasks[index][tipos] = event.srcElement.value;
+        this.tasks[index].editingDescription = false;
+      } else {
+        this.tasks[index][tipos] = event.srcElement.value;
+        this.tasks[index].editingName = false;
+      }
     },
 
     changeStatus(index) {
@@ -203,5 +234,38 @@ export default {
   padding: 50px;
 }
 .transparent {
+}
+.checkbox-size {
+  width: 20px;
+  height: 20px;
+}
+.description {
+  position: relative;
+
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+.icons {
+  transition: 0.1s;
+  left: 250px;
+  cursor: pointer;
+}
+
+.icons:hover {
+  font-size: 20px;
+  filter: brightness(200%);
 }
 </style>
