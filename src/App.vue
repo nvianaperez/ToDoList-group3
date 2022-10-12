@@ -1,24 +1,13 @@
 <template>
-  <div id="app">
-  <todo-app></todo-app>
-  <exercices></exercices>
-  <forms></forms>
-  <searcher></searcher>
-</div>
+  <main >
+  <router-view />
+</main>
 </template>
 <script>
-  import TodoApp from './components/TodoApp.vue'
-import Exercices from './components/Exercices.vue';
-import Forms from './components/forms.vue';
-import Searcher from './components/searcher.vue';
+ 
   export default {
     name: 'App',
-    components: {
-    TodoApp,
-    Exercices,
-    Forms,
-    Searcher,
-}
+    
   }
 </script>
 <!-- <script>
@@ -46,48 +35,5 @@ export default {
     addTask(titleInput, descriptionInput) {},
   },
 };
-</script>
+</script> -->
 
-<template>
-  <main>
-    <section id="search-filter">
-      <input type="search" placeholder="Search" />
-    </section>
-    <section id="tasks-container">
-      <ul>
-        <li v-for="item in tasks" :key="{item}">
-          <div>
-            <div>
-              <input v-model="item.title" disabled="true" />
-              <input v-model="item.description" disabled="true" />
-            </div>
-            <div>
-              <input type="checkbox" />
-              <button >Delete</button>
-              <button >Edit</button>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </section>
-    <section id="new-task"></section>
-  </main>
-
-  <div>
-    <label>
-      <input v-model="title" type="text" placeholder="Title" />
-    </label>
-    <label>
-      <input type="textarea" placeholder="Please specify the task" />
-    </label>
-    <button @click="addTask">+</button>
-  </div>
-</template>
-
-<style>
-
-main {
-  background-color: #60105030;
-}
-
-</style> -->
