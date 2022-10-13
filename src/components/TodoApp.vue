@@ -27,7 +27,7 @@
     </div>
 
     <!-- CAJITA PARA BUSCAR TAREAS-->
-    <div class="container mt-2" id="search-filter">
+    <div class="mt-2" id="search-filter">
       <input
         class="rounded mr-1 text-center border-info"
         type="search"
@@ -60,7 +60,7 @@
       v-for="(task, index) in tasks"
       :key="task.id"
       class="container-fluid row mt-4 mx-5 col-11 rounded-2"
-      :style="{ backgroundColor: task.status ? '#6ad86a42' : '#ff6d534d' }"
+      :style="{ backgroundColor: task.status ? '#6ad86a85' : '#ff6d534d' }"
     >
       <!-- V-IF V-ELSE  if task editing is false ( we are not editing), show the task into the span, else, show the imput)-->
       <div class="col-2 mt-2 d-flex flex-column icons-wrapper">
@@ -122,26 +122,26 @@
 </template>
 
 <script>
-import { faArrowsToDot } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsToDot } from "@fortawesome/free-solid-svg-icons";
 
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
     msg: String,
   },
 
   data() {
     return {
-      task: '',
-      taskStatus: ['to-do', 'finished'],
+      task: "",
+      taskStatus: ["to-do", "finished"],
       idforTask: 3,
 
       tasks: [
         {
           id: 1,
-          name: 'title task 1',
-          description: ' description task 1 ',
-          status: 'to-do',
+          name: "title task 1",
+          description: " description task 1 ",
+          status: "to-do",
           completed: false,
           editingName: false,
           editingDescription: false,
@@ -149,9 +149,9 @@ export default {
 
         {
           id: 2,
-          name: 'title task 2',
-          description: ' description task 2 ',
-          status: 'to-do',
+          name: "title task 2",
+          description: " description task 2 ",
+          status: "to-do",
           completed: false,
           editingName: false,
           editingDescription: false,
@@ -184,15 +184,15 @@ export default {
         id: this.idforTask,
         name: this.task,
         description: this.description,
-        status: 'to-do',
+        status: "to-do",
         completed: false,
         editingName: false,
         editingDescription: false,
       });
 
       // when we add the new task the  input should be empty, the same with the imput description
-      this.task = '';
-      this.description = '';
+      this.task = "";
+      this.description = "";
 
       //We also want to increase the id
       this.idforTask++;
@@ -203,7 +203,7 @@ export default {
     },
 
     editTask(task, tipos) {
-      if (tipos === 'description') {
+      if (tipos === "description") {
         task.editingDescription = true;
       } else {
         task.editingName = true;
@@ -211,7 +211,7 @@ export default {
     },
 
     finishEdit(event, index, tipos) {
-      if (tipos === 'description') {
+      if (tipos === "description") {
         this.tasks[index][tipos] = event.srcElement.value;
         this.tasks[index].editingDescription = false;
       } else {
@@ -228,25 +228,30 @@ export default {
 </script>
 
 <style>
-#newTask {
-  margin: 20px;
-  background-color: #5d68b1;
-  padding: 50px;
-}
 .container {
   position: relative;
+  padding: 20px;
 }
 
-.container:after {
+.container:before {
   content: "";
-  display: block;
   position: absolute;
-  top: 0;
-  left: 0;
-  background-image: url("https://www.google.com/search?q=imagenes+to+do&tbm=isch&ved=2ahUKEwj00f_v1dD6AhUSWxoKHTNRBUcQ2-cCegQIABAA&oq=imagenes+to+do&gs_lcp=CgNpbWcQAzIECCMQJ1AAWABgvAdoAHAAeACAAU-IAU-SAQExmAEAqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=BHJBY_S_CZK2abOilbgE&bih=968&biw=960&rlz=1C1GCEA_esES1024ES1024#imgrc=XUAfMHxflHqrVM");
+  width: 100%;
   height: 100%;
-  opacity: 0.4;
-  z-index: -1;
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBlptX2PylaHNKw1GqXoIoui6gIzZJ1TeMA&usqp=CAU")
+    center / cover;
+  opacity: 0.2;
+}
+
+h2 {
+  padding: 30px;
+  position: relative;
+}
+#newTask,
+#search-filter {
+  margin: 20px;
+  padding: 30px;
+  position: relative;
 }
 
 .checkbox-size {
