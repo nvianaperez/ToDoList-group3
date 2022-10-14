@@ -1,4 +1,4 @@
-<!--***************TEMPLATE***********************-->
+<!--******************TEMPLATE***********************-->
 <template>
   <div class="container">
     <!-- table content -->
@@ -25,7 +25,10 @@
       <!--This'll inject our task.name in our html-->
       <div class="col-10">
         <div class="">
-          <span v-if="!task.editing" @dblclick="editTask(task)"
+          <span
+            class="text-primary fs-4 col-9 description"
+            v-if="!task.editingName"
+            @dblclick="editTask(task, 'name')"
             >{{ task.name }}
           </span>
           <input
@@ -36,7 +39,13 @@
             @blur="finishEdit($event, index, 'task')"
           />
         </div>
-        <div class="" v-if="!task.editing">{{ task.description }}</div>
+        <div
+          class="text-secondary fs-6 description col-9"
+          v-if="!task.editingDescription"
+          @dblclick="editTask(task, 'description')"
+        >
+          {{ task.description }}
+        </div>
         <input
           v-else
           type="text"
@@ -108,7 +117,8 @@ export default {
           description: " description task 1 ",
           status: "to-do",
           completed: false,
-          editing: false,
+          editingName: false,
+          editingDescription: false,
         },
 
         {
@@ -117,7 +127,8 @@ export default {
           description: " description task 2 ",
           status: "to-do",
           completed: false,
-          editing: false,
+          editingName: false,
+          editingDescription: false,
         },
       ],
     };
@@ -158,7 +169,8 @@ export default {
         description: this.description,
         status: "to-do",
         completed: false,
-        editing: false,
+        editingName: false,
+        editingDescription: false,
       });
 
       // when we add the new task the  input should be empty, the same with the imput description
@@ -179,18 +191,24 @@ export default {
       setTimeout(() => this.tasks.splice(index, 1), 1500);
     },
 
-    //EDITING THE TASK
-
-    //editTASK
-    editTask(task) {
-      task.editing = true;
+    editTask(task, tipos) {
+      if (tipos === 'description') {
+        task.editingDescription = true;
+      } else {
+        task.editingName = true;
+      }
     },
 
     //stopEditing
 
     finishEdit(event, index, tipos) {
-      this.tasks[index][tipos] = event.srcElement.value;
-      this.tasks[index].editing = false;
+      if (tipos === 'description') {
+        this.tasks[index][tipos] = event.srcElement.value;
+        this.tasks[index].editingDescription = false;
+      } else {
+        this.tasks[index][tipos] = event.srcElement.value;
+        this.tasks[index].editingName = false;
+      }
     },
 
     changeStatus(index) {
@@ -217,5 +235,38 @@ export default {
 }
 #newTask {
   background-color: #5d68b1;
+}
+.checkbox-size {
+  width: 20px;
+  height: 20px;
+}
+.description {
+  position: relative;
+
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+.icons {
+  transition: 0.1s;
+  left: 250px;
+  cursor: pointer;
+}
+
+.icons:hover {
+  font-size: 20px;
+  filter: brightness(200%);
 }
 </style>
