@@ -1,6 +1,7 @@
 <!--******************TEMPLATE***********************-->
 <template>
   <div class="container">
+
     <!-- table content -->
     <!-- VFOR  We can use to render a list of items based on an array// 
      for loop //The key attribute tells Vue how your data relates to the HTML elements
@@ -9,6 +10,7 @@
     <div
       v-for="(task, index) in filteredList"
       :key="task.id"
+
       :id="'task' + task.id"
       class="deletedTask transition row mb-2 py-2 rounded"
       :style="{ backgroundColor: !task.status ? '#6ad86a42' : '#ff6d534d' }"
@@ -192,7 +194,7 @@ export default {
     },
 
     editTask(task, tipos) {
-      if (tipos === 'description') {
+      if (tipos === "description") {
         task.editingDescription = true;
       } else {
         task.editingName = true;
@@ -202,7 +204,7 @@ export default {
     //stopEditing
 
     finishEdit(event, index, tipos) {
-      if (tipos === 'description') {
+      if (tipos === "description") {
         this.tasks[index][tipos] = event.srcElement.value;
         this.tasks[index].editingDescription = false;
       } else {
@@ -219,6 +221,17 @@ export default {
 </script>
 
 <style>
+
+.container:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBlptX2PylaHNKw1GqXoIoui6gIzZJ1TeMA&usqp=CAU")
+    center / cover;
+  opacity: 0.2;
+}
+
 .deleteIcon {
   display: inline-block;
   transition: all 0.5s ease-in-out;
@@ -236,6 +249,7 @@ export default {
 #newTask {
   background-color: #5d68b1;
 }
+
 .checkbox-size {
   width: 20px;
   height: 20px;
