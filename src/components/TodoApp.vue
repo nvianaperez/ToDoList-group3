@@ -1,55 +1,6 @@
 <!--******************TEMPLATE***********************-->
 <template>
   <div class="container">
-    <h2 class="text-center mt-5 md-3" id="header">
-      Vue TODO APP- GROUP 3
-      <font-awesome-icon icon="fa-solid fa-user-secret" />
-    </h2>
-
-    <!---------- CAJITA DONDE INTRODUCIR LA NUEVA TAREA CON SU BOTON SUBMIT -->
-
-    <div class="d-flex flex-column" id="newTask">
-      <input
-        v-model="task"
-        type=" text"
-        placeholder=" Add new task"
-        class="form-control"
-      />
-      <input
-        v-model="description"
-        type=" textarea"
-        placeholder=" Please specify the task"
-        class="form-control"
-      />
-      <button @click="submitTask" class="btn btn-primary rounded-0 btn-sm">
-        + SUBMIT
-      </button>
-    </div>
-
-    <!-- CAJITA PARA BUSCAR TAREAS-->
-    <div class="mt-2" id="search-filter">
-      <input
-        class="rounded mr-1 text-center border-info"
-        type="search"
-        placeholder="Search"
-      />
-      <span>
-        <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-      </span>
-    </div>
-
-    <!--CAJITA PARA FILTRAR MOSTRAR TAREAS NO COMPLETADAS-->
-    <!-- <div class="container mt-2 " id="tareas-no-completadas"> 
-        <input class="rounded mr-1 text-center border-info" type="search" placeholder="Search" />
-        <span><font-awesome-icon icon="fa-solid fa-magnifying-glass" />  </span>
-        </div> -->
-
-    <!-- CAJITA QUE TE DICE SI HAY MÁS DE TRES CAJAS  new!-->
-
-    <!-- <span> {{numberTask}}</span> -->
-
-    <!-- TASK TABLE -->
-    <!-- Conceptos utilizados:  **v-for**  **:key**  **{{}}**-->
 
     <!-- table content -->
     <!-- VFOR  We can use to render a list of items based on an array// 
@@ -57,28 +8,24 @@
      it's rendering to the screen. When your data changes, Vue uses these keys to know which HTML elements
      to remove or update, and if it needs to create any new ones. -->
     <div
-      v-for="(task, index) in tasks"
+      v-for="(task, index) in filteredList"
       :key="task.id"
-      class="container-fluid row mt-4 mx-5 col-11 rounded-2"
-      :style="{ backgroundColor: task.status ? '#6ad86a85' : '#ff6d534d' }"
+
+      :id="'task' + task.id"
+      class="deletedTask transition row mb-2 py-2 rounded"
+      :style="{ backgroundColor: !task.status ? '#6ad86a42' : '#ff6d534d' }"
     >
       <!-- V-IF V-ELSE  if task editing is false ( we are not editing), show the task into the span, else, show the imput)-->
-      <div class="col-2 mt-2 d-flex flex-column icons-wrapper">
-        <div
-          class="text-primary text-center icons"
-          @click.capture="editTask(index, 'name')"
-        >
-          <font-awesome-icon icon="fa-solid fa-pencil " />
+      <div class="col-1">
+        <div class="text-primary text-center" @click.capture="editTask(index)">
+          <font-awesome-icon icon="fa-solid fa-pencil" />
         </div>
-        <p
-          class="text-danger text-center icons"
-          @click.capture="deleteTask(index)"
-        >
-          X
-        </p>
+        <div class="text-center" @click.capture="deleteTask(index)">
+          <span class="deleteIcon text-danger">X</span>
+        </div>
       </div>
       <!--This'll inject our task.name in our html-->
-      <div class="col-9">
+      <div class="col-10">
         <div class="">
           <span
             class="text-primary fs-4 col-9 description"
@@ -109,15 +56,44 @@
           @blur="finishEdit($event, index, 'description')"
         />
       </div>
-      <input
-        type="checkbox"
-        class="col-1"
-        style="height: 30px; margin-top: 20px"
-        @change="changeStatus(index)"
-      />
+      <div class="col-1 d-flex align-items-center justify-content-center">
+        <input type="checkbox" @change="changeStatus(index)" />
+      </div>
 
       <!-- <div> <span @click="changeStatus(index)" >{{task.status}}</span></div> -->
     </div>
+    <!-- CAJITA DONDE INTRODUCIR LA NUEVA TAREA CON SU BOTON SUBMIT -->
+
+    <section class="row flex-column py-4 px-5" id="newTask">
+      <input
+        v-model="task"
+        type=" text"
+        placeholder=" Add new task"
+        class="col-8 form-control"
+      />
+      <input
+        v-model="description"
+        type=" textarea"
+        placeholder=" Please specify the task"
+        class="col-8 form-control"
+      />
+      <button @click="submitTask" class="btn btn-primary rounded-0 btn-sm">
+        + SUBMIT
+      </button>
+    </section>
+
+    <!--CAJITA PARA FILTRAR MOSTRAR TAREAS NO COMPLETADAS-->
+    <!-- <div class="container mt-2 " id="tareas-no-completadas"> 
+        <input class="rounded mr-1 text-center border-info" type="search" placeholder="Search" />
+        <span><font-awesome-icon icon="fa-solid fa-magnifying-glass" />  </span>
+        </div> -->
+
+    <!-- CAJITA QUE TE DICE SI HAY MÁS DE TRES CAJAS  new!-->
+
+    <!-- <span> {{numberTask}}</span> -->
+
+    <!-- TASK TABLE -->
+    <!-- Conceptos utilizados:  **v-for**  **:key**  **{{}}**-->
   </div>
 </template>
 
@@ -127,7 +103,7 @@ import { faArrowsToDot } from "@fortawesome/free-solid-svg-icons";
 export default {
   name: "HelloWorld",
   props: {
-    msg: String,
+    wordToSearch: String,
   },
 
   data() {
@@ -138,7 +114,7 @@ export default {
 
       tasks: [
         {
-          id: 1,
+          id: 0,
           name: "title task 1",
           description: " description task 1 ",
           status: "to-do",
@@ -148,7 +124,7 @@ export default {
         },
 
         {
-          id: 2,
+          id: 1,
           name: "title task 2",
           description: " description task 2 ",
           status: "to-do",
@@ -159,7 +135,16 @@ export default {
       ],
     };
   },
-
+  computed: {
+    filteredList() {
+      return this.tasks.filter((post) => {
+        return (
+          post.name.toLowerCase().includes(this.wordToSearch.toLowerCase()) ||
+          post.description.toLowerCase().includes(this.wordToSearch.toLowerCase())
+        );
+      });
+    },
+  },
   // computed:{
   //     numberTask(){
   //         return this.tasks.length > 2 ? 'some new task now' : 'only standar tasks'
@@ -198,8 +183,14 @@ export default {
       this.idforTask++;
     },
 
+    //DELETE THE TASK
+
     deleteTask(index) {
-      this.tasks.splice(index, 1);
+      console.log(index);
+      document
+        .getElementById("task" + String(index))
+        .classList.add("deletedTaskActive");
+      setTimeout(() => this.tasks.splice(index, 1), 1500);
     },
 
     editTask(task, tipos) {
@@ -209,6 +200,8 @@ export default {
         task.editingName = true;
       }
     },
+
+    //stopEditing
 
     finishEdit(event, index, tipos) {
       if (tipos === "description") {
@@ -228,10 +221,6 @@ export default {
 </script>
 
 <style>
-.container {
-  position: relative;
-  padding: 20px;
-}
 
 .container:before {
   content: "";
@@ -243,15 +232,22 @@ export default {
   opacity: 0.2;
 }
 
-h2 {
-  padding: 30px;
-  position: relative;
+.deleteIcon {
+  display: inline-block;
+  transition: all 0.5s ease-in-out;
 }
-#newTask,
-#search-filter {
-  margin: 20px;
-  padding: 30px;
-  position: relative;
+.deleteIcon:hover {
+  cursor: pointer;
+  transform: scale(1.2) rotate(0.5turn);
+}
+.deletedTask {
+  transition: all 1s ease-in;
+}
+.deletedTaskActive {
+  transform: scale(0);
+}
+#newTask {
+  background-color: #5d68b1;
 }
 
 .checkbox-size {

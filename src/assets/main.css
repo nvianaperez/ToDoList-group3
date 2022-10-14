@@ -1,7 +1,13 @@
 
 
 main {
-  background-color: #60105030;
+  height: 100vh;
+  background-color: #d6abce30;
+}
+
+input[type="checkbox"] {
+  width: 30px;
+  height: 30px;
 }
 
 

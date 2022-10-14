@@ -1,13 +1,24 @@
 import { createApp } from 'vue'
+import { createWebHashHistory, createRouter } from 'vue-router'
 import App from './App.vue'
+import Home from "./pages/Home.vue"
+
+
+const routes = [
+  { path: '/', component: Home },
+ 
+]
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes, // short for `routes: routes`
+})
 
 import './assets/main.css'
-
 
 //bootstrap
 
 import  'bootstrap/dist/css/bootstrap.min.css'
-
 
 //fontawesome  ( set up the library)
 /* import the fontawesome core */
@@ -24,6 +35,8 @@ library.add(faUserSecret,faMagnifyingGlass,faPencil)
 
 
 
+
 createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)
+.use(router)
 .mount('#app')
