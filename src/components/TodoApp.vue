@@ -1,8 +1,8 @@
 <!--******************TEMPLATE***********************-->
 <template>
-  <div class="container">
+   <div class="container">
     <!-- table content -->
-    <TaskWrapper></TaskWrapper>
+    <TaskWrapper :wordToSearch="wordToSearch"></TaskWrapper>
 
     <AddTaskForm></AddTaskForm>
     <!--CAJITA PARA FILTRAR MOSTRAR TAREAS NO COMPLETADAS-->
@@ -21,36 +21,26 @@
 </template>
 
 <script>
-import { faArrowsToDot } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsToDot } from "@fortawesome/free-solid-svg-icons";
+import {useTasksStore} from "../store/useTasksStore";
 import AddTaskForm from '../components/forms/AddTaskForm.vue';
 import TaskWrapper from './task-wrapper/Task-Wrapper.vue';
 
 export default {
-  name: 'HelloWorld',
-  props: {
-    wordToSearch: String,
-  },
   components: {
     AddTaskForm,
     TaskWrapper,
   },
-  data() {},
-  computed: {
-    filteredList() {
-      return this.tasks.filter((post) => {
-        return (
-          post.name.toLowerCase().includes(this.wordToSearch.toLowerCase()) ||
-          post.description
-            .toLowerCase()
-            .includes(this.wordToSearch.toLowerCase())
-        );
-      });
-    },
+  props: {
+    wordToSearch: String,
   },
+ 
+  
 };
 </script>
 
 <style>
+
 
 .deleteIcon {
   display: inline-block;
@@ -66,11 +56,10 @@ export default {
 .deletedTaskActive {
   transform: scale(0);
 }
-
-.checkbox-size {
-  width: 20px;
-  height: 20px;
+#newTask {
+  background-color: #5d68b1;
 }
+
 .description {
   position: relative;
 

@@ -1,33 +1,39 @@
 <script>
 import TaskRow from './Task-row/Task-row.vue';
+import {useTasksStore} from "../../store/useTasksStore";
+
 export default {
   components: {
     TaskRow,
   },
+ props: {
+    wordToSearch: String,
+  },
+  setup() {
+    const tasksStore = useTasksStore()
+    console.log(tasksStore.filterByText);
+    return {tasksStore, filter: tasksStore.filterByText}
+  },
   data() {
     return {
-      tasks: [
-        {
-          id: 0,
-          name: 'title task 1',
-          description: ' description task 1 ',
-          status: 'to-do',
-          completed: false,
-          editingName: false,
-          editingDescription: false,
-        },
-
-        {
-          id: 1,
-          name: 'title task 2',
-          description: ' description task 2 ',
-          status: 'to-do',
-          completed: false,
-          editingName: false,
-          editingDescription: false,
-        },
-      ],
+      tasks: this.tasksStore.tasks
     };
+  },
+  computed: {
+    filteredList() {
+      return this.tasks.filter((post) => {
+        return (
+          post.text.toLowerCase().includes(this.wordToSearch.toLowerCase()) 
+        );
+      })
+    }
+  },
+ 
+  created () {
+    this.tasksStore.getTodos()
+  },
+  mounted () {
+    this.tasks = this.filteredList
   },
 };
 </script>
@@ -39,7 +45,7 @@ export default {
      to remove or update, and if it needs to create any new ones. -->
 
   <TaskRow
-    v-for="(task, index) in tasks"
+    v-for="(task) in tasksStore.filterByText(wordToSearch)"
     :key="task.id"
     v-bind:task="task"
   ></TaskRow>
