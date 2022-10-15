@@ -10,7 +10,7 @@ export const useTasksStore = defineStore("tasks", {
    filterByText: (state) => {
     return (word) => {
       console.log(word)
-      return state.tasks.filter(task => task.text.includes(word) || task.description.includes(word) ) 
+      return state.tasks.filter(task => task.text.toLowerCase().includes(word.toLowerCase()) || task.description.toLowerCase().includes(word.toLowerCase()) ) 
     }
    },
    
