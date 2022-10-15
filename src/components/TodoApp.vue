@@ -4,17 +4,12 @@
 
     <!-- table content -->
     <!-- VFOR  We can use to render a list of items based on an array// 
-     for loop //The key attribute tells Vue how your data relates to the HTML elements
-     it's rendering to the screen. When your data changes, Vue uses these keys to know which HTML elements
-     to remove or update, and if it needs to create any new ones. -->
-    <div
-      v-for="(task, index) in filteredList"
-      :key="task.id"
-
-      :id="'task' + task.id"
+        for loop //The key attribute tells Vue how your data relates to the HTML elements
+        it's rendering to the screen. When your data changes, Vue uses these keys to know which HTML elements
+        to remove or update, and if it needs to create any new ones. -->
+    <div v-for="(task, index) in filteredList" :key="task.id" :id="'task' + task.id"
       class="deletedTask transition row mb-2 py-2 rounded"
-      :style="{ backgroundColor: !task.status ? '#6ad86a42' : '#ff6d534d' }"
-    >
+      :style="{ backgroundColor: !task.status ? '#6ad86a42' : '#ff6d534d' }">
       <!-- V-IF V-ELSE  if task editing is false ( we are not editing), show the task into the span, else, show the imput)-->
       <div class="col-1">
         <div class="text-primary text-center" @click.capture="editTask(index)">
@@ -27,34 +22,18 @@
       <!--This'll inject our task.name in our html-->
       <div class="col-10">
         <div class="">
-          <span
-            class="text-primary fs-4 col-9 description"
-            v-if="!task.editingName"
-            @dblclick="editTask(task, 'name')"
-            >{{ task.name }}
+          <span class="text-primary fs-4 col-9 description" v-if="!task.editingName"
+            @dblclick="editTask(task, 'name')">{{ task.name }}
           </span>
-          <input
-            v-else
-            type="text"
-            v-model="task.name"
-            @keyup.enter="finishEdit($event, index, 'task')"
-            @blur="finishEdit($event, index, 'task')"
-          />
+          <input v-else type="text" v-model="task.name" @keyup.enter="finishEdit($event, index, 'task')"
+            @blur="finishEdit($event, index, 'task')" />
         </div>
-        <div
-          class="text-secondary fs-6 description col-9"
-          v-if="!task.editingDescription"
-          @dblclick="editTask(task, 'description')"
-        >
+        <div class="text-secondary fs-6 description col-9" v-if="!task.editingDescription"
+          @dblclick="editTask(task, 'description')">
           {{ task.description }}
         </div>
-        <input
-          v-else
-          type="text"
-          v-model="task.description"
-          @keyup.enter="finishEdit($event, index, 'description')"
-          @blur="finishEdit($event, index, 'description')"
-        />
+        <input v-else type="text" v-model="task.description" @keyup.enter="finishEdit($event, index, 'description')"
+          @blur="finishEdit($event, index, 'description')" />
       </div>
       <div class="col-1 d-flex align-items-center justify-content-center">
         <input type="checkbox" @change="changeStatus(index)" />
@@ -64,20 +43,10 @@
     </div>
     <!-- CAJITA DONDE INTRODUCIR LA NUEVA TAREA CON SU BOTON SUBMIT -->
 
-    <section class="row flex-column py-4 px-5" id="newTask">
-      <input
-        v-model="task"
-        type=" text"
-        placeholder=" Add new task"
-        class="col-8 form-control"
-      />
-      <input
-        v-model="description"
-        type=" textarea"
-        placeholder=" Please specify the task"
-        class="col-8 form-control"
-      />
-      <button @click="submitTask" class="btn btn-primary rounded-0 btn-sm">
+    <section class="row flex-column py-4 px-5 rounded-2" id="newTask">
+      <input v-model="task" type=" text" placeholder=" Add new task" class="col-8 form-control rounded-2 mb-1" />
+      <input v-model="description" type=" textarea" placeholder=" Please specify the task" class="col-8 form-control rounded-2 mb-3" />
+      <button @click="submitTask" class="btn btn-primary rounded-2 btn-sm">
         + SUBMIT
       </button>
     </section>
@@ -95,6 +64,7 @@
     <!-- TASK TABLE -->
     <!-- Conceptos utilizados:  **v-for**  **:key**  **{{}}**-->
   </div>
+
 </template>
 
 <script>
@@ -222,38 +192,33 @@ export default {
 
 <style>
 
-.container:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBlptX2PylaHNKw1GqXoIoui6gIzZJ1TeMA&usqp=CAU")
-    center / cover;
-  opacity: 0.2;
-}
-
 .deleteIcon {
   display: inline-block;
   transition: all 0.5s ease-in-out;
 }
+
 .deleteIcon:hover {
   cursor: pointer;
   transform: scale(1.2) rotate(0.5turn);
 }
+
 .deletedTask {
   transition: all 1s ease-in;
 }
+
 .deletedTaskActive {
   transform: scale(0);
 }
+
 #newTask {
-  background-color: #5d68b1;
+  background-color: rgba(90,34,139,0.3);
 }
 
 .checkbox-size {
   width: 20px;
   height: 20px;
 }
+
 .description {
   position: relative;
 
@@ -273,6 +238,7 @@ export default {
   -webkit-hyphens: auto;
   hyphens: auto;
 }
+
 .icons {
   transition: 0.1s;
   left: 250px;
