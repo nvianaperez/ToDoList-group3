@@ -40,17 +40,7 @@ export default {
 </script>
 
 <style>
-/* 
-  main:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBlptX2PylaHNKw1GqXoIoui6gIzZJ1TeMA&usqp=CAU")
-    center / cover;
-  opacity: 0.2;
-  z-index: -1;
-}   */
+
 
 .deleteIcon {
   display: inline-block;

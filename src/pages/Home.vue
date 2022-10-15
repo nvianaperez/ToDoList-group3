@@ -21,20 +21,46 @@ export default {
 };
 </script>
 <template>
-  <div class="container py-5">
-    <header>
-      <h2 class="text-center mb-5" id="header">
-        Vue TODO APP- GROUP 3
-        <font-awesome-icon icon="fa-solid fa-user-secret" />
-      </h2>
-    </header>
+  <div class="container-wraper">
+    <div class="container px-5 py-5">
+      <header>
+        <h2 class="text-center mb-5" id="header">
+          Vue TODO APP- GROUP 3
+          <font-awesome-icon icon="fa-solid fa-user-secret" />
+        </h2>
+      </header>
 
-    <section class="container mb-1">
-      <div class="row justify-content-between">
-        <div class="col-4">Filter</div>
-        <Searcher @emitInput="onSearchByWord($event)" />
-      </div>
-    </section>
-    <TodoApp :wordToSearch="wordToSearch" />
+      <section class="container mt-5 mb-5">
+        <div class="row justify-content-between">
+          <div class="col-4">Filter</div>
+          <Searcher @emitInput="onSearchByWord($event)" />
+        </div>
+      </section>
+      <TodoApp :wordToSearch="wordToSearch" />
+    </div>
   </div>
 </template>
+
+
+
+<style>
+/* .container-wraper:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBlptX2PylaHNKw1GqXoIoui6gIzZJ1TeMA&usqp=CAU") center / cover;
+  opacity: 0.1;
+} */
+
+
+.container {
+  background-color: white;
+}
+
+header {
+  border-style: solid;
+  border-width: 0 0 1px 0;
+  border-color: grey;
+}
+</style>

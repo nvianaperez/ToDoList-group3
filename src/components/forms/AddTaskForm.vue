@@ -31,26 +31,26 @@ export default {
 };
 </script>
 <template>
-  <section class="row flex-column py-4 px-5" id="newTask">
+  <section class="row flex-column mt-5 py-4 px-5 rounded-2" id="newTask">
     <input
       v-model="task"
       type=" text"
       placeholder=" Add new task"
-      class="col-8 form-control"
+      class="col-8 form-control mb-2"
     />
     <input
       v-model="description"
       type=" textarea"
       placeholder=" Please specify the task"
-      class="col-8 form-control"
+      class="col-8 form-control mb-2"
     />
-    <button @click="createTask" class="btn btn-primary rounded-0 btn-sm">
+    <button @click="createTask" class="btn btn-primary rounded-2 btn-sm">
       + SUBMIT
     </button>
   </section>
 </template>
 <style>
 #newTask {
-  background-color: #5d68b1;
+  background-color: 	rgba(91, 91, 214, 0.4)
 }
 </style>
