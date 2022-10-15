@@ -1,7 +1,6 @@
 <!--******************TEMPLATE***********************-->
 <template>
   <div class="container">
-
     <!-- table content -->
     <!-- VFOR  We can use to render a list of items based on an array// 
      for loop //The key attribute tells Vue how your data relates to the HTML elements
@@ -10,7 +9,6 @@
     <div
       v-for="(task, index) in filteredList"
       :key="task.id"
-
       :id="'task' + task.id"
       class="deletedTask transition row mb-2 py-2 rounded"
       :style="{ backgroundColor: !task.status ? '#6ad86a42' : '#ff6d534d' }"
@@ -65,18 +63,20 @@
     <!-- CAJITA DONDE INTRODUCIR LA NUEVA TAREA CON SU BOTON SUBMIT -->
 
     <section class="row flex-column py-4 px-5" id="newTask">
-      <input
+      <v-text-field v-model="task" label="Task" required></v-text-field>
+      <v-text-field v-model="description" label="Task" required></v-text-field>
+      <!-- <input
         v-model="task"
         type=" text"
         placeholder=" Add new task"
         class="col-8 form-control"
-      />
-      <input
+      /> -->
+      <!-- <input
         v-model="description"
         type=" textarea"
         placeholder=" Please specify the task"
         class="col-8 form-control"
-      />
+      /> -->
       <button @click="submitTask" class="btn btn-primary rounded-0 btn-sm">
         + SUBMIT
       </button>
@@ -98,26 +98,26 @@
 </template>
 
 <script>
-import { faArrowsToDot } from "@fortawesome/free-solid-svg-icons";
+import { faArrowsToDot } from '@fortawesome/free-solid-svg-icons';
 
 export default {
-  name: "HelloWorld",
+  name: 'HelloWorld',
   props: {
     wordToSearch: String,
   },
 
   data() {
     return {
-      task: "",
-      taskStatus: ["to-do", "finished"],
+      task: '',
+      taskStatus: ['to-do', 'finished'],
       idforTask: 3,
 
       tasks: [
         {
           id: 0,
-          name: "title task 1",
-          description: " description task 1 ",
-          status: "to-do",
+          name: 'title task 1',
+          description: ' description task 1 ',
+          status: 'to-do',
           completed: false,
           editingName: false,
           editingDescription: false,
@@ -125,9 +125,9 @@ export default {
 
         {
           id: 1,
-          name: "title task 2",
-          description: " description task 2 ",
-          status: "to-do",
+          name: 'title task 2',
+          description: ' description task 2 ',
+          status: 'to-do',
           completed: false,
           editingName: false,
           editingDescription: false,
@@ -140,7 +140,9 @@ export default {
       return this.tasks.filter((post) => {
         return (
           post.name.toLowerCase().includes(this.wordToSearch.toLowerCase()) ||
-          post.description.toLowerCase().includes(this.wordToSearch.toLowerCase())
+          post.description
+            .toLowerCase()
+            .includes(this.wordToSearch.toLowerCase())
         );
       });
     },
@@ -169,15 +171,15 @@ export default {
         id: this.idforTask,
         name: this.task,
         description: this.description,
-        status: "to-do",
+        status: 'to-do',
         completed: false,
         editingName: false,
         editingDescription: false,
       });
 
       // when we add the new task the  input should be empty, the same with the imput description
-      this.task = "";
-      this.description = "";
+      this.task = '';
+      this.description = '';
 
       //We also want to increase the id
       this.idforTask++;
@@ -188,13 +190,13 @@ export default {
     deleteTask(index) {
       console.log(index);
       document
-        .getElementById("task" + String(index))
-        .classList.add("deletedTaskActive");
+        .getElementById('task' + String(index))
+        .classList.add('deletedTaskActive');
       setTimeout(() => this.tasks.splice(index, 1), 1500);
     },
 
     editTask(task, tipos) {
-      if (tipos === "description") {
+      if (tipos === 'description') {
         task.editingDescription = true;
       } else {
         task.editingName = true;
@@ -204,7 +206,7 @@ export default {
     //stopEditing
 
     finishEdit(event, index, tipos) {
-      if (tipos === "description") {
+      if (tipos === 'description') {
         this.tasks[index][tipos] = event.srcElement.value;
         this.tasks[index].editingDescription = false;
       } else {
@@ -221,15 +223,15 @@ export default {
 </script>
 
 <style>
-
 .container:before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 100%;
-  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBlptX2PylaHNKw1GqXoIoui6gIzZJ1TeMA&usqp=CAU")
+  background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBlptX2PylaHNKw1GqXoIoui6gIzZJ1TeMA&usqp=CAU')
     center / cover;
   opacity: 0.2;
+  z-index: -1;
 }
 
 .deleteIcon {
