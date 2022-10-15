@@ -1,86 +1,10 @@
 <!--******************TEMPLATE***********************-->
 <template>
-  <div class="container">
-
+   <div class="container">
     <!-- table content -->
-    <!-- VFOR  We can use to render a list of items based on an array// 
-     for loop //The key attribute tells Vue how your data relates to the HTML elements
-     it's rendering to the screen. When your data changes, Vue uses these keys to know which HTML elements
-     to remove or update, and if it needs to create any new ones. -->
-    <div
-      v-for="(task, index) in tasksStore.tasks"
-      :key="task.id"
-      :id="'task' + task.id"
-      class="deletedTask transition row mb-2 py-2 rounded"
-      :style="{ backgroundColor: task.completed ? '#6ad86a42' : '#ff6d534d' }"
-    >
-      <!-- V-IF V-ELSE  if task editing is false ( we are not editing), show the task into the span, else, show the imput)-->
-      <div class="col-1">
-        <div class="text-primary text-center" @click.capture="editTask(index)">
-          <font-awesome-icon icon="fa-solid fa-pencil" />
-        </div>
-        <div class="text-center" @click.capture="deleteTask(task.id)">
-          <span class="deleteIcon text-danger">X</span>
-        </div>
-      </div>
-      <!--This'll inject our task.text in our html-->
-      <div class="col-10">
-        <div class="">
-          <span
-            class="text-primary fs-4 col-9 description"
-            v-if="!task.editingName"
-            @dblclick="editTask(task, 'name')"
-            >{{ task.text }}
-          </span>
-          <input
-            v-else
-            type="text"
-            v-model="task.text"
-            @keyup.enter="finishEdit($event, index, 'task')"
-            @blur="finishEdit($event, index, 'task')"
-          />
-        </div>
-        <div
-          class="text-secondary fs-6 description col-9"
-          v-if="!task.editingDescription"
-          @dblclick="editTask(task, 'description')"
-        >
-          {{ task.description }}
-        </div>
-        <!-- <input
-          v-else
-          type="text"
-          v-model="task.description"
-          @keyup.enter="finishEdit($event, index, 'description')"
-          @blur="finishEdit($event, index, 'description')"
-        /> -->
-      </div>
-      <div class="col-1 d-flex align-items-center justify-content-center">
-        <input type="checkbox" @change="changeStatus(index)" v-model="task.completed"/>
-      </div>
+    <TaskWrapper :wordToSearch="wordToSearch"></TaskWrapper>
 
-      <!-- <div> <span @click="changeStatus(index)" >{{task.status}}</span></div> -->
-    </div>
-    <!-- CAJITA DONDE INTRODUCIR LA NUEVA TAREA CON SU BOTON SUBMIT -->
-
-    <section class="row flex-column py-4 px-5" id="newTask">
-      <input
-        v-model="task"
-        type=" text"
-        placeholder=" Add new task"
-        class="col-8 form-control"
-      />
-      <!-- <input
-        v-model="description"
-        type=" textarea"
-        placeholder=" Please specify the task"
-        class="col-8 form-control"
-      /> -->
-      <button @click="submitTask" class="btn btn-primary rounded-0 btn-sm">
-        + SUBMIT
-      </button>
-    </section>
-
+    <AddTaskForm></AddTaskForm>
     <!--CAJITA PARA FILTRAR MOSTRAR TAREAS NO COMPLETADAS-->
     <!-- <div class="container mt-2 " id="tareas-no-completadas"> 
         <input class="rounded mr-1 text-center border-info" type="search" placeholder="Search" />
@@ -99,97 +23,19 @@
 <script>
 import { faArrowsToDot } from "@fortawesome/free-solid-svg-icons";
 import {useTasksStore} from "../store/useTasksStore";
+import AddTaskForm from '../components/forms/AddTaskForm.vue';
+import TaskWrapper from './task-wrapper/Task-Wrapper.vue';
 
 export default {
+  components: {
+    AddTaskForm,
+    TaskWrapper,
+  },
   props: {
     wordToSearch: String,
   },
-  setup() {
-    const tasksStore = useTasksStore()
-    return {tasksStore}
-  },
-  data() {
-    return {
-      tasks: this.tasksStore.tasks
-    };
-  },
-  computed: {
-    filteredList() {
-      return this.tasks.filter((post) => {
-        return (
-          post.author.toLowerCase().includes(this.wordToSearch.toLowerCase()) ||
-          post.text.toLowerCase().includes(this.wordToSearch.toLowerCase()) 
-        );
-      })
-    }
-  },
  
-  created () {
-    this.tasksStore.getTodos()
-  },
-  mounted () {
-    this.tasks = this.filteredList
-  },
- 
-  methods: {
-    submitTask() {
-      // / When the submit button is click, we want to make sure that is something enter in the imput, if the task.length is 0 just return anything.
-      if (this.task.length === 0) return;
-
-      // tasks.push to our array tasks an object with name (this.task)  ,  status  by defalult  to-do and this.description , esto funciona gracias a v-model-ver inputs linia 8 y 9
-
-      this.tasks.push({
-        id: this.idforTask,
-        name: this.task,
-        description: this.description,
-        status: "to-do",
-        completed: false,
-        editingName: false,
-        editingDescription: false,
-      });
-
-      // when we add the new task the  input should be empty, the same with the imput description
-      this.task = "";
-      this.description = "";
-
-      //We also want to increase the id
-      this.idforTask++;
-    },
-
-    //DELETE THE TASK
-
-    deleteTask(index) {
-      console.log(index);
-      document
-        .getElementById("task" + String(index))
-        .classList.add("deletedTaskActive");
-      setTimeout(() => this.tasks.splice(index, 1), 1500);
-    },
-
-    editTask(task, tipos) {
-      if (tipos === "description") {
-        task.editingDescription = true;
-      } else {
-        task.editingName = true;
-      }
-    },
-
-    //stopEditing
-
-    finishEdit(event, index, tipos) {
-      if (tipos === "description") {
-        this.tasks[index][tipos] = event.srcElement.value;
-        this.tasks[index].editingDescription = false;
-      } else {
-        this.tasks[index][tipos] = event.srcElement.value;
-        this.tasks[index].editingName = false;
-      }
-    },
-
-    changeStatus(index) {
-      this.tasks[index].status = !this.tasks[index].status;
-    },
-  },
+  
 };
 </script>
 
