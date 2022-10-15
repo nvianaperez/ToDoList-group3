@@ -222,7 +222,7 @@ export default {
 
 <style>
 
-.container:before {
+ main:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -230,7 +230,7 @@ export default {
   background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBlptX2PylaHNKw1GqXoIoui6gIzZJ1TeMA&usqp=CAU")
     center / cover;
   opacity: 0.2;
-}
+} 
 
 .deleteIcon {
   display: inline-block;
@@ -250,10 +250,6 @@ export default {
   background-color: #5d68b1;
 }
 
-.checkbox-size {
-  width: 20px;
-  height: 20px;
-}
 .description {
   position: relative;
 
