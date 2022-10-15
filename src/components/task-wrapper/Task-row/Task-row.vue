@@ -48,7 +48,7 @@ export default {
   <div
     :id="'task' + task.id"
     class="deletedTask transition row mb-2 py-2 rounded"
-    :style="{ backgroundColor: !task.completed ? '#6ad86a42' : '#ff6d534d' }"
+    :style="{ backgroundColor: !task.completed ? '#ff6d534d' : '#6ad86a42' }"
   >
     <!-- V-IF V-ELSE  if task editing is false ( we are not editing), show the task into the span, else, show the imput)-->
     <div class="col-1">

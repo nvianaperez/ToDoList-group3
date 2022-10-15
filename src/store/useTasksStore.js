@@ -25,10 +25,15 @@ export const useTasksStore = defineStore("tasks", {
         console.log(error);
       }
     },
+
+
     changeStatusTask: (state) => {
+      //buscar la tarea por ID
+      //y luego cambiarle el estado
+
       return (id) => state.tasks.find(task => {
         console.log(id)
-        (task.id === id) ? task.status = !task.status : null
+        (task.id === id) ? task.completed = !task.completed : null
       })
      }
   },

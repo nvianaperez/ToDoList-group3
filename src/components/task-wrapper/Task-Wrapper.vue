@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     filteredList() {
-      return this.tasks.filter((post) => {
+      return this.tasksStore.tasks.filter((post) => {
         return (
           post.text.toLowerCase().includes(this.wordToSearch.toLowerCase()) 
         );
@@ -32,9 +32,9 @@ export default {
   created () {
     this.tasksStore.getTodos()
   },
-  mounted () {
-    this.tasks = this.filteredList
-  },
+  // mounted () {
+  //   this.tasks = this.filteredList
+  // },
 };
 </script>
 
