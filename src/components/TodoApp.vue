@@ -8,34 +8,34 @@
      it's rendering to the screen. When your data changes, Vue uses these keys to know which HTML elements
      to remove or update, and if it needs to create any new ones. -->
     <div
-      v-for="(task, index) in filteredList"
+      v-for="(task, index) in tasksStore.tasks"
       :key="task.id"
       :id="'task' + task.id"
       class="deletedTask transition row mb-2 py-2 rounded"
-      :style="{ backgroundColor: !task.status ? '#6ad86a42' : '#ff6d534d' }"
+      :style="{ backgroundColor: task.completed ? '#6ad86a42' : '#ff6d534d' }"
     >
       <!-- V-IF V-ELSE  if task editing is false ( we are not editing), show the task into the span, else, show the imput)-->
       <div class="col-1">
         <div class="text-primary text-center" @click.capture="editTask(index)">
           <font-awesome-icon icon="fa-solid fa-pencil" />
         </div>
-        <div class="text-center" @click.capture="deleteTask(index)">
+        <div class="text-center" @click.capture="deleteTask(task.id)">
           <span class="deleteIcon text-danger">X</span>
         </div>
       </div>
-      <!--This'll inject our task.name in our html-->
+      <!--This'll inject our task.text in our html-->
       <div class="col-10">
         <div class="">
           <span
             class="text-primary fs-4 col-9 description"
             v-if="!task.editingName"
             @dblclick="editTask(task, 'name')"
-            >{{ task.name }}
+            >{{ task.text }}
           </span>
           <input
             v-else
             type="text"
-            v-model="task.name"
+            v-model="task.text"
             @keyup.enter="finishEdit($event, index, 'task')"
             @blur="finishEdit($event, index, 'task')"
           />
@@ -47,16 +47,16 @@
         >
           {{ task.description }}
         </div>
-        <input
+        <!-- <input
           v-else
           type="text"
           v-model="task.description"
           @keyup.enter="finishEdit($event, index, 'description')"
           @blur="finishEdit($event, index, 'description')"
-        />
+        /> -->
       </div>
       <div class="col-1 d-flex align-items-center justify-content-center">
-        <input type="checkbox" @change="changeStatus(index)" />
+        <input type="checkbox" @change="changeStatus(index)" v-model="task.completed"/>
       </div>
 
       <!-- <div> <span @click="changeStatus(index)" >{{task.status}}</span></div> -->
@@ -70,12 +70,12 @@
         placeholder=" Add new task"
         class="col-8 form-control"
       />
-      <input
+      <!-- <input
         v-model="description"
         type=" textarea"
         placeholder=" Please specify the task"
         class="col-8 form-control"
-      />
+      /> -->
       <button @click="submitTask" class="btn btn-primary rounded-0 btn-sm">
         + SUBMIT
       </button>
@@ -101,7 +101,6 @@ import { faArrowsToDot } from "@fortawesome/free-solid-svg-icons";
 import {useTasksStore} from "../store/useTasksStore";
 
 export default {
-  name: "HelloWorld",
   props: {
     wordToSearch: String,
   },
@@ -119,16 +118,19 @@ export default {
       return this.tasks.filter((post) => {
         return (
           post.author.toLowerCase().includes(this.wordToSearch.toLowerCase()) ||
-          post.text.toLowerCase().includes(this.wordToSearch.toLowerCase())
+          post.text.toLowerCase().includes(this.wordToSearch.toLowerCase()) 
         );
-      });
-    },
+      })
+    }
   },
  
   created () {
     this.tasksStore.getTodos()
   },
-
+  mounted () {
+    this.tasks = this.filteredList
+  },
+ 
   methods: {
     submitTask() {
       // / When the submit button is click, we want to make sure that is something enter in the imput, if the task.length is 0 just return anything.
