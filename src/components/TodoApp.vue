@@ -10,7 +10,6 @@
     <div
       v-for="(task, index) in filteredList"
       :key="task.id"
-
       :id="'task' + task.id"
       class="deletedTask transition row mb-2 py-2 rounded"
       :style="{ backgroundColor: !task.status ? '#6ad86a42' : '#ff6d534d' }"
@@ -99,64 +98,36 @@
 
 <script>
 import { faArrowsToDot } from "@fortawesome/free-solid-svg-icons";
+import {useTasksStore} from "../store/useTasksStore";
 
 export default {
   name: "HelloWorld",
   props: {
     wordToSearch: String,
   },
-
+  setup() {
+    const tasksStore = useTasksStore()
+    return {tasksStore}
+  },
   data() {
     return {
-      task: "",
-      taskStatus: ["to-do", "finished"],
-      idforTask: 3,
-
-      tasks: [
-        {
-          id: 0,
-          name: "title task 1",
-          description: " description task 1 ",
-          status: "to-do",
-          completed: false,
-          editingName: false,
-          editingDescription: false,
-        },
-
-        {
-          id: 1,
-          name: "title task 2",
-          description: " description task 2 ",
-          status: "to-do",
-          completed: false,
-          editingName: false,
-          editingDescription: false,
-        },
-      ],
+      tasks: this.tasksStore.tasks
     };
   },
   computed: {
     filteredList() {
       return this.tasks.filter((post) => {
         return (
-          post.name.toLowerCase().includes(this.wordToSearch.toLowerCase()) ||
-          post.description.toLowerCase().includes(this.wordToSearch.toLowerCase())
+          post.author.toLowerCase().includes(this.wordToSearch.toLowerCase()) ||
+          post.text.toLowerCase().includes(this.wordToSearch.toLowerCase())
         );
       });
     },
   },
-  // computed:{
-  //     numberTask(){
-  //         return this.tasks.length > 2 ? 'some new task now' : 'only standar tasks'
-  //     },
-
-  // },
-
-  // computed: {
-  //     tareasnofinalizadas(){
-  //         return this.task
-  //     }
-  // }
+ 
+  created () {
+    this.tasksStore.getTodos()
+  },
 
   methods: {
     submitTask() {
@@ -221,8 +192,8 @@ export default {
 </script>
 
 <style>
-
- main:before {
+/* 
+  main:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -230,7 +201,8 @@ export default {
   background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBlptX2PylaHNKw1GqXoIoui6gIzZJ1TeMA&usqp=CAU")
     center / cover;
   opacity: 0.2;
-} 
+  z-index: -1;
+}   */
 
 .deleteIcon {
   display: inline-block;
