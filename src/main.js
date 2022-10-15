@@ -3,6 +3,7 @@ import { createWebHashHistory, createRouter } from 'vue-router';
 import { createPinia } from 'pinia';
 import App from './App.vue'
 import Home from "./pages/Home.vue"
+import AboutUs from "./pages/AboutUs.vue"
 import './assets/main.css'
 //bootstrap
 import  'bootstrap/dist/css/bootstrap.min.css'
@@ -19,15 +20,17 @@ import { faUserSecret,faMagnifyingGlass, faPencil } from '@fortawesome/free-soli
 /* add icons to the library */
 library.add(faUserSecret,faMagnifyingGlass,faPencil)
 
+
 const routes = [
   { path: '/', component: Home },
- 
+  { path: '/about-us', component: AboutUs },
 ]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes, // short for `routes: routes`
 })
+
 const pinia = createPinia()
 
 
