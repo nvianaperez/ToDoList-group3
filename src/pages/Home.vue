@@ -32,7 +32,8 @@ export default {
 
       <section class="container mt-5 mb-5">
         <div class="row justify-content-between">
-          <div class="col-4">Filter</div>
+          <router-link to="/about-us" class="col-3">About us</router-link>
+          <div class="col-3">Filter</div>
           <Searcher @emitInput="onSearchByWord($event)" />
         </div>
       </section>
