@@ -11,12 +11,12 @@ export default {
   },
   setup() {
     const tasksStore = useTasksStore()
-    console.log(tasksStore);
+    console.log(tasksStore.filterByText);
     return {tasksStore, filter: tasksStore.filterByText}
   },
   data() {
     return {
-      tasks: filter(this.wordToSearch)
+      tasks: this.tasksStore.tasks
     };
   },
   computed: {
@@ -45,7 +45,7 @@ export default {
      to remove or update, and if it needs to create any new ones. -->
 
   <TaskRow
-    v-for="(task) in tasks"
+    v-for="(task) in tasksStore.filterByText(wordToSearch)"
     :key="task.id"
     v-bind:task="task"
   ></TaskRow>

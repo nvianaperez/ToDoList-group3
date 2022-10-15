@@ -5,8 +5,15 @@ export const useTasksStore = defineStore("tasks", {
     tasks: [
     ],
   }),
+  
   getters: {
-   filterByText: (word) => word ? this.tasks.filter(task => task.text.includes(word)) : this.tasks
+   filterByText: (state) => {
+    return (word) => {
+      console.log(word)
+      return state.tasks.filter(task => task.text.includes(word) || task.description.includes(word) ) 
+    }
+   },
+   
   },
   actions: {
     async getTodos() {
@@ -18,6 +25,12 @@ export const useTasksStore = defineStore("tasks", {
         console.log(error);
       }
     },
+    changeStatusTask: (state) => {
+      return (id) => state.tasks.find(task => {
+        console.log(id)
+        (task.id === id) ? task.status = !task.status : null
+      })
+     }
   },
   
 });

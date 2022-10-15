@@ -1,7 +1,12 @@
 <script>
-export default {
-  props: ['task'],
+import {useTasksStore} from "../../../store/useTasksStore";
 
+export default {
+  setup() {
+      const tasksStore = useTasksStore()
+      return {tasksStore}
+    },
+  props: ['task'],
   methods: {
     //DELETE THE TASK
 
@@ -33,8 +38,8 @@ export default {
       }
     },
 
-    changeStatus(index) {
-      this.tasks[index].status = !this.tasks[index].status;
+    changeStatus(id) {
+      this.tasksStore.changeStatusTask(id)
     },
   },
 };
@@ -50,7 +55,7 @@ export default {
       <div class="text-primary text-center" @click.capture="editTask(index)">
         <font-awesome-icon icon="fa-solid fa-pencil" />
       </div>
-      <div class="text-center" @click.capture="deleteTask(index)">
+      <div class="text-center" @click.capture="deleteTask(task.id)">
         <span class="deleteIcon text-danger">X</span>
       </div>
     </div>
@@ -71,7 +76,7 @@ export default {
           @blur="finishEdit($event, index, 'task')"
         />
       </div>
-      <!-- <div
+      <div
         class="text-secondary fs-6 description col-9"
         v-if="!task.editingDescription"
         @dblclick="editTask(task, 'description')"
@@ -84,7 +89,7 @@ export default {
         v-model="task.description"
         @keyup.enter="finishEdit($event, index, 'description')"
         @blur="finishEdit($event, index, 'description')"
-      /> -->
+      />
     </div>
     <div class="col-1 d-flex align-items-center justify-content-center">
       <input type="checkbox" @change="changeStatus(task.id)" />
