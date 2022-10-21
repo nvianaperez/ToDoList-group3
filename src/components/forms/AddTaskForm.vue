@@ -44,13 +44,14 @@ export default {
       placeholder=" Please specify the task"
       class="col-8 form-control mb-2"
     />
-    <button @click="createTask" class="btn btn-primary rounded-2 btn-sm">
+    <slot></slot>
+    <!-- <button @click="createTask" class="btn btn-primary rounded-2 btn-sm">
       + SUBMIT
-    </button>
+    </button> -->
   </section>
 </template>
 <style>
-#newTask {
-  background-color: 	rgba(91, 91, 214, 0.4)
-}
+/* #newTask {
+  background-color: rgba(91, 91, 214, 0.4);
+} */
 </style>
