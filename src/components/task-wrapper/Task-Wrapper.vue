@@ -57,11 +57,17 @@ export default {
      to remove or update, and if it needs to create any new ones. -->
 
   <TaskRow
+    v-if="tasksStore.tasks && tasksStore.tasks.length > 0"
     v-for="task in tasksStore.filterByText(wordToSearch)"
     :key="task.id"
     v-bind:task="task"
     @patchEvent="patchTask($event)"
     @deleteEvent="deleteTask($event)"
   ></TaskRow>
+  <img class="no-tasks" v-else src="../../assets/notasks.svg" alt="No tasks" />
 </template>
-<style></style>
+<style>
+.no-tasks {
+  max-height: 350px;
+}
+</style>

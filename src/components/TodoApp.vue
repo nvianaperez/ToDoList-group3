@@ -1,6 +1,6 @@
 <!--******************TEMPLATE***********************-->
 <template>
-  <div class="container">
+  <div class="container wrapper">
     <!-- table content -->
     <TaskWrapper :wordToSearch="wordToSearch"></TaskWrapper>
 
@@ -48,7 +48,7 @@
 
     <!-- TASK TABLE -->
     <!-- Conceptos utilizados:  **v-for**  **:key**  **{{}}**-->
-    <v-footer class="mt-5 rounded-1" color="grey darken-4" padless>
+    <v-footer class="mt-5 rounded-1 footer" color="grey darken-4" padless>
       <v-row justify="center" no-gutters>
         <v-btn
           v-for="link in links"
@@ -90,6 +90,17 @@ export default {
 </script>
 
 <style>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.footer {
+  position: relative !important;
+  top: 200% !important;
+  align-content: flex-end;
+  max-height: 150px !important;
+}
 .deleteIcon {
   display: inline-block;
   transition: all 0.5s ease-in-out;

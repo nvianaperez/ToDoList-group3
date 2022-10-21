@@ -21,28 +21,51 @@ export default {
 };
 </script>
 <template>
-  <div class="container-wraper">
-    <div class="container px-5 py-5">
-      <header>
-        <h2 class="text-center mb-5" id="header">
-          Vue TODO APP- GROUP 3
-          <font-awesome-icon icon="fa-solid fa-user-secret" />
-        </h2>
-      </header>
+  <div class="container px-5 py-2">
+    <header class="bg-info rounded">
+      <h2 class="text-start p-4" id="header">
+        Todo App
+        <font-awesome-icon icon="fa-solid fa-user-secret" />
+      </h2>
+    </header>
 
-      <section class="container mt-5 mb-5">
-        <div class="row justify-content-between">
-          <router-link to="/about-us" class="col-3">About us</router-link>
-          <div class="col-3">Filter</div>
+    <section class="mt-2 mb-4">
+      <div class="">
+        <nav
+          class="d-flex flex-row justify-content-between navbar navbar-expand-lg navbar-white bg-secondary bg-gradient rounded"
+        >
+          <div>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item navbar-brand">
+                  <router-link to="/" class="nav-link active">Home</router-link>
+                </li>
+                <li class="nav-item navbar-brand">
+                  <router-link to="/about-us" class="nav-link active"
+                    >About us</router-link
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
           <Searcher @emitInput="onSearchByWord($event)" />
-        </div>
-      </section>
-      <TodoApp :wordToSearch="wordToSearch" />
-    </div>
+        </nav>
+      </div>
+    </section>
+    <TodoApp class="rest" :wordToSearch="wordToSearch" />
   </div>
 </template>
-
-
 
 <style>
 /* .container-wraper:before {
@@ -54,9 +77,14 @@ export default {
   opacity: 0.1;
 } */
 
-
 .container {
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.rest {
+  flex: 1;
 }
 
 header {

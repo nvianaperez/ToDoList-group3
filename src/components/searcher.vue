@@ -17,10 +17,7 @@ export default {
 </script>
 <!-- CAJITA PARA BUSCAR TAREAS-->
 <template>
-  <div
-    class="col-12 col-md-4 col-lg-3 mt-2 d-flex justify-content-end"
-    id="search-filter"
-  >
+  <div class="mt-2 d-flex justify-content-end" id="search-filter">
     <input
       class="form-control rounded mr-1 text-center border-info"
       type="search"
