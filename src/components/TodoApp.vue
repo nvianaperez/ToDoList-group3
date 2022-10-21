@@ -67,7 +67,7 @@ export default {
   transform: scale(1.2) rotate(0.5turn);
 }
 .deletedTask-action {
-  transition: all 0.5s ease-in;
+  transition: all 0.8s ease-in;
 }
 .deletedTaskActive {
   transform: scale(0);

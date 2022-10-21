@@ -63,15 +63,9 @@ export const useTasksStore = defineStore('tasks', {
       try {
         const res = await fetch(url, {
           method: 'DELETE',
-          headers: {
-            'Content-type': 'application/json',
-            Accept: '*/*',
-          },
         });
-        const data = await res.json();
-        if (data === {}) {
-          this.tasks = this.tasks.filter((task) => task.id !== id);
-        }
+        await res.json();
+        this.tasks = this.tasks.filter((task) => task.id !== id);
       } catch (error) {
         console.log(error);
       }
