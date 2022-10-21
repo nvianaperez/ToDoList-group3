@@ -64,4 +64,8 @@ header {
   border-width: 0 0 1px 0;
   border-color: grey;
 }
+
+footer {
+  background-color:blue;
+}
 </style>
