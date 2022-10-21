@@ -1,39 +1,46 @@
 <script>
 import TaskRow from './Task-row/Task-row.vue';
-import {useTasksStore} from "../../store/useTasksStore";
+import { useTasksStore } from '../../store/useTasksStore';
 
 export default {
   components: {
     TaskRow,
   },
- props: {
+  props: {
     wordToSearch: String,
   },
   setup() {
-    const tasksStore = useTasksStore()
+    const tasksStore = useTasksStore();
     console.log(tasksStore.filterByText);
-    return {tasksStore, filter: tasksStore.filterByText}
+    return { tasksStore, filter: tasksStore.filterByText };
   },
   data() {
     return {
-      tasks: this.tasksStore.tasks
+      tasks: this.tasksStore.tasks,
+      taskToEdit: null,
     };
+  },
+  methods: {
+    patchTask(task) {
+      console.log(task);
+      this.tasksStore.patchTask(task);
+    },
   },
   computed: {
     filteredList() {
       return this.tasks.filter((post) => {
-        return (
-          post.text.toLowerCase().includes(this.wordToSearch.toLowerCase()) 
-        );
-      })
-    }
+        return post.text
+          .toLowerCase()
+          .includes(this.wordToSearch.toLowerCase());
+      });
+    },
   },
- 
-  created () {
-    this.tasksStore.getTodos()
+
+  created() {
+    this.tasksStore.getTodos();
   },
-  mounted () {
-    this.tasks = this.filteredList
+  mounted() {
+    this.tasks = this.filteredList;
   },
 };
 </script>
@@ -45,9 +52,10 @@ export default {
      to remove or update, and if it needs to create any new ones. -->
 
   <TaskRow
-    v-for="(task) in tasksStore.filterByText(wordToSearch)"
+    v-for="task in tasksStore.filterByText(wordToSearch)"
     :key="task.id"
     v-bind:task="task"
+    @emitInput="patchTask($event)"
   ></TaskRow>
 </template>
 <style></style>
