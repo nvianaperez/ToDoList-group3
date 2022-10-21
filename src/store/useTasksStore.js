@@ -7,13 +7,14 @@ export const useTasksStore = defineStore('tasks', {
 
   getters: {
     filterByText: (state) => {
+      console.log('state', state.tasks);
       return (word) => {
-        console.log(word);
-        return state.tasks.filter(
-          (task) =>
-            task?.text?.toLowerCase().includes(word.toLowerCase()) ||
-            task?.description?.toLowerCase().includes(word.toLowerCase())
-        );
+        return state.tasks.filter((task) => {
+          return (
+            task.text.toLowerCase().includes(word.toLowerCase()) ||
+            task.description.toLowerCase().includes(word.toLowerCase())
+          );
+        });
       };
     },
   },

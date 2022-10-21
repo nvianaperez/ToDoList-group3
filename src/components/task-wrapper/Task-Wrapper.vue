@@ -11,7 +11,7 @@ export default {
   },
   setup() {
     const tasksStore = useTasksStore();
-    console.log(tasksStore.filterByText);
+
     return { tasksStore, filter: tasksStore.filterByText };
   },
   data() {

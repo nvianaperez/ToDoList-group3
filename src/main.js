@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import { createWebHashHistory, createRouter } from 'vue-router';
 import { createPinia } from 'pinia';
 import App from './App.vue';
-import Home from './pages/Home.vue';
+import TodoApp from './components/TodoApp.vue';
 import AboutUs from './pages/AboutUs.vue';
 import './assets/main.css';
 import vuetify from './plugins/vuetify';
@@ -27,7 +27,7 @@ import {
 library.add(faUserSecret, faMagnifyingGlass, faPencil);
 
 const routes = [
-  { path: '/', component: Home },
+  { path: '/', component: TodoApp, props: { wordToSearch: '' } },
   { path: '/about-us', component: AboutUs },
 ];
 
