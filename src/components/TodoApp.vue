@@ -66,8 +66,8 @@ export default {
   cursor: pointer;
   transform: scale(1.2) rotate(0.5turn);
 }
-.deletedTask {
-  transition: all 1s ease-in;
+.deletedTask-action {
+  transition: all 0.8s ease-in;
 }
 .deletedTaskActive {
   transform: scale(0);
