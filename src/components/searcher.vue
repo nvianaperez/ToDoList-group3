@@ -1,8 +1,7 @@
 <script>
 export default {
-  
   data() {
-    return { inputSearch: "" };
+    return { inputSearch: '' };
   },
   watch: {
     inputSearch(event) {
@@ -16,19 +15,27 @@ export default {
   },
 };
 </script>
- <!-- CAJITA PARA BUSCAR TAREAS-->
- <template>
-  <div class="col-4 mt-2 d-flex justify-content-end" id="search-filter">
+<!-- CAJITA PARA BUSCAR TAREAS-->
+<template>
+  <div
+    class="col-12 col-md-4 col-lg-3 mt-2 d-flex justify-content-end"
+    id="search-filter"
+  >
     <input
-      class="rounded mr-1 text-center border-info"
+      class="form-control rounded mr-1 text-center border-info"
       type="search"
       v-model="inputSearch"
       placeholder="Search"
     />
-    <span>
-      <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-    </span>
+    <!-- <span> -->
+    <font-awesome-icon class="icon" icon="fa-solid fa-magnifying-glass" />
+    <!-- </span> -->
   </div>
 </template>
- 
- 
+<style>
+.icon {
+  position: relative;
+  right: 30px;
+  top: 10px;
+}
+</style>

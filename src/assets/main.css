@@ -1,16 +1,12 @@
-
-
 main {
-  height: 100vh;
+  height: 100%;
   background-color: #d6abce30;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   width: 30px;
   height: 30px;
 }
-
-
 
 /* @import "./base.css";
 
