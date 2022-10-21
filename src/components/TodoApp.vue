@@ -4,7 +4,38 @@
     <!-- table content -->
     <TaskWrapper :wordToSearch="wordToSearch"></TaskWrapper>
 
-    <AddTaskForm></AddTaskForm>
+    <!--  -->
+
+    <div class="text-center">
+      <v-dialog
+        v-model="dialog"
+        width="1000"
+        transition="dialog-bottom-transition"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            @click="dialog = true"
+            class="mt-2"
+            color="red"
+            dark
+          >
+            Add A Task
+          </v-btn>
+        </template>
+        <AddTaskForm>
+          <div class="d-flex flex-row justify-content-end">
+            <v-btn class="col-2 m-2" color="blue" text @click="dialog = false">
+              Add
+            </v-btn>
+            <v-btn class="col-2 m-2" color="white" text @click="dialog = false">
+              Cancel
+            </v-btn>
+          </div>
+        </AddTaskForm>
+      </v-dialog>
+    </div>
+
     <!--CAJITA PARA FILTRAR MOSTRAR TAREAS NO COMPLETADAS-->
     <!-- <div class="container mt-2 " id="tareas-no-completadas"> 
         <input class="rounded mr-1 text-center border-info" type="search" placeholder="Search" />
@@ -53,6 +84,7 @@ export default {
   },
   data: () => ({
     links: ['Home', 'About Us', 'GitHub', 'Linkedin', 'Contact Us'],
+    dialog: false,
   }),
 };
 </script>

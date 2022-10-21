@@ -79,7 +79,7 @@ export default {
         </span>
         <input
           id="input-text"
-          class="form-control rounded text-primary fs-4 col-9 description description-editing"
+          class="form-control rounded text-primary fs-4 col-9 description description-editing row-input"
           v-else
           type="text"
           v-model="task.text"
@@ -96,7 +96,7 @@ export default {
       </div>
       <input
         v-else
-        class="form-control rounded"
+        class="form-control rounded row-input"
         id="input-description"
         type="text"
         v-model="task.description"
@@ -118,7 +118,7 @@ export default {
   </div>
 </template>
 <style>
-.form-control {
+.row-input {
   border: none !important;
   background-color: transparent !important;
   max-height: 36px;
