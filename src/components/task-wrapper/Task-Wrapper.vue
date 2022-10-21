@@ -25,6 +25,11 @@ export default {
       console.log(task);
       this.tasksStore.patchTask(task);
     },
+    deleteTask(id) {
+      if (!id) return;
+      console.log(id);
+      this.tasksStore.deleteTask(id);
+    },
   },
   computed: {
     filteredList() {
@@ -55,7 +60,8 @@ export default {
     v-for="task in tasksStore.filterByText(wordToSearch)"
     :key="task.id"
     v-bind:task="task"
-    @emitInput="patchTask($event)"
+    @patchEvent="patchTask($event)"
+    @deleteEvent="deleteTask($event)"
   ></TaskRow>
 </template>
 <style></style>

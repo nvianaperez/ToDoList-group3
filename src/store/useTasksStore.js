@@ -56,5 +56,25 @@ export const useTasksStore = defineStore('tasks', {
         console.log(error);
       }
     },
+    async deleteTask({ id }) {
+      console.log(id);
+      const url = `https://todos-mpwar.herokuapp.com/users/grupo3/todos/${id}`;
+
+      try {
+        const res = await fetch(url, {
+          method: 'DELETE',
+          headers: {
+            'Content-type': 'application/json',
+            Accept: '*/*',
+          },
+        });
+        const data = await res.json();
+        if (data === {}) {
+          this.tasks = this.tasks.filter((task) => task.id !== id);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 });

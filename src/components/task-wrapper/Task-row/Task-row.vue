@@ -18,13 +18,6 @@ export default {
   methods: {
     //DELETE THE TASK
 
-    deleteTask(index) {
-      console.log(index);
-      document
-        .getElementById('task' + String(index))
-        .classList.add('deletedTaskActive');
-      setTimeout(() => this.tasks.splice(index, 1), 1500);
-    },
     startEditDescription() {
       this.editingDescription = true;
     },
@@ -33,40 +26,40 @@ export default {
     },
 
     editTask(event) {
-      console.log(event);
-
       const id = this.task.id;
 
       if (event.target.id === 'input-description') {
         const description = event.srcElement.value;
         this.editingDescription = false;
 
-        this.$emit('emitInput', { id, description });
+        this.$emit('patchEvent', { id, description });
       }
       if (event.target.id === 'input-text') {
         const text = event.srcElement.value;
         this.editingText = false;
-        this.$emit('emitInput', { id, text });
+        this.$emit('patchEvent', { id, text });
       }
       if (event.target.id === 'input-completed') {
         const completed = !this.task.completed;
 
-        this.$emit('emitInput', { id, completed });
+        this.$emit('patchEvent', { id, completed });
       }
+    },
+    deleteTask(id) {
+      document
+        .getElementById('task' + String(id))
+        .classList.add('deletedTaskActive');
+      setTimeout(() => this.$emit('deleteEvent', { id }), 1500);
     },
 
     //stopEditing
-
-    changeStatus() {
-      const id = this.task.id;
-    },
   },
 };
 </script>
 <template>
   <div
     :id="'task' + task.id"
-    class="transition row mb-2 py-2 rounded task-container"
+    class="deletedTask-action transition row mb-2 py-2 rounded task-container"
     :style="{ backgroundColor: !task.completed ? '#6ad86a42' : '#ff6d534d' }"
   >
     <!-- V-IF V-ELSE  if task editing is false ( we are not editing), show the task into the span, else, show the imput)-->
