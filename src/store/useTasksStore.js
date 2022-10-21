@@ -11,8 +11,8 @@ export const useTasksStore = defineStore('tasks', {
         console.log(word);
         return state.tasks.filter(
           (task) =>
-            task.text.toLowerCase().includes(word.toLowerCase()) ||
-            task.description.toLowerCase().includes(word.toLowerCase())
+            task?.text?.toLowerCase().includes(word.toLowerCase()) ||
+            task?.description?.toLowerCase().includes(word.toLowerCase())
         );
       };
     },
@@ -21,9 +21,10 @@ export const useTasksStore = defineStore('tasks', {
     async getTodos() {
       try {
         const res = await fetch(
-          'https://todos-mpwar.herokuapp.com/users/aleh/todos'
+          'https://todos-mpwar.herokuapp.com/users/grupo3/todos'
         );
         const data = await res.json();
+        console.log(data);
         this.tasks = data;
       } catch (error) {
         console.log(error);
@@ -36,9 +37,8 @@ export const useTasksStore = defineStore('tasks', {
         });
     },
     async patchTask(data) {
-      console.log(data);
       const { id } = data;
-      const url = `https://todos-mpwar.herokuapp.com/users/aleh/todos/${id}`;
+      const url = `https://todos-mpwar.herokuapp.com/users/grupo3/todos/${id}`;
       const body = JSON.stringify(data);
       try {
         const res = await fetch(url, {
