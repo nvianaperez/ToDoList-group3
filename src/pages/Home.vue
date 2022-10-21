@@ -1,11 +1,11 @@
 <script>
-import TodoApp from '../components/TodoApp.vue';
-import Searcher from '../components/searcher.vue';
+import TodoApp from "../components/TodoApp.vue";
+import Searcher from "../components/searcher.vue";
 
 export default {
   data() {
     return {
-      wordToSearch: '',
+      wordToSearch: "",
     };
   },
   components: {
@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     onSearchByWord(value) {
-      console.log('valor emitido desde componente hijo:', value);
+      console.log("valor emitido desde componente hijo:", value);
       this.wordToSearch = value;
     },
   },
@@ -32,8 +32,6 @@ export default {
 
       <section class="container mt-5 mb-5">
         <div class="row justify-content-between">
-          <router-link to="/about-us" class="col-3">About us</router-link>
-          <div class="col-3">Filter</div>
           <Searcher @emitInput="onSearchByWord($event)" />
         </div>
       </section>
@@ -41,8 +39,6 @@ export default {
     </div>
   </div>
 </template>
-
-
 
 <style>
 /* .container-wraper:before {
@@ -53,7 +49,6 @@ export default {
   background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBlptX2PylaHNKw1GqXoIoui6gIzZJ1TeMA&usqp=CAU") center / cover;
   opacity: 0.1;
 } */
-
 
 .container {
   background-color: white;

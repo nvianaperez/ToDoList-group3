@@ -27,8 +27,16 @@
           rounded
           class="ml-2"
         >
-          {{ link }}
+          <router-link :to="link.href"> {{ link.label }} </router-link>
+
+          <!-- <v-else>
+            <a href="link.href"> {{ link.label }} </a> -->
         </v-btn>
+
+        <!-- <v-btn color="white" text rounded class="ml-2">
+          <router-link to="/about-us">{{ link }}</router-link>
+        </v-btn> -->
+
         <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
           {{ new Date().getFullYear() }} — <strong>ToDo App- Grupo 3</strong>
         </v-col>
@@ -38,10 +46,10 @@
 </template>
 
 <script>
-import { faArrowsToDot } from '@fortawesome/free-solid-svg-icons';
-import { useTasksStore } from '../store/useTasksStore';
-import AddTaskForm from '../components/forms/AddTaskForm.vue';
-import TaskWrapper from './task-wrapper/Task-Wrapper.vue';
+import { faArrowsToDot } from "@fortawesome/free-solid-svg-icons";
+import { useTasksStore } from "../store/useTasksStore";
+import AddTaskForm from "../components/forms/AddTaskForm.vue";
+import TaskWrapper from "./task-wrapper/Task-Wrapper.vue";
 
 export default {
   components: {
@@ -51,9 +59,24 @@ export default {
   props: {
     wordToSearch: String,
   },
-  data: () => ({
-    links: ['Home', 'About Us', 'GitHub', 'Linkedin', 'Contact Us'],
-  }),
+
+  data() {
+    return {
+      links: [
+        { label: "Home", isRouterLink: true, href: "/home" },
+        { label: "About Us", isRouterLink: true, href: "/about-us" },
+        {
+          label: "GitHub",
+          isRouterLink: false,
+          href: "https://github.com/nvianaperez/ToDoList-group3",
+        },
+      ],
+    };
+  },
+
+  // data: () => ({
+  //   links: ["Home", "About Us", "GitHub"],
+  // }),
 };
 </script>
 
