@@ -73,9 +73,9 @@ export default {
 
 <style>
 .wrapper {
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  justify-content: space-between; */
+  justify-content: space-between;
 }
 
 .deleteIcon {
