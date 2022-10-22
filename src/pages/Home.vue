@@ -1,48 +1,27 @@
 <script>
 import TodoApp from '../components/TodoApp.vue';
 import Searcher from '../components/searcher.vue';
+// import MenuComponent from '../components/MenuComponent.vue';
 
 export default {
+  props: {
+    wordToSearch: String,
+  },
   data() {
-    return {
-      wordToSearch: '',
-    };
+    return {};
   },
   components: {
     TodoApp,
     Searcher,
   },
-  methods: {
-    onSearchByWord(value) {
-      console.log('valor emitido desde componente hijo:', value);
-      this.wordToSearch = value;
-    },
-  },
 };
 </script>
 <template>
-  <div class="container-wraper">
-    <div class="container px-5 py-5">
-      <header>
-        <h2 class="text-center mb-5" id="header">
-          Vue TODO APP- GROUP 3
-          <font-awesome-icon icon="fa-solid fa-user-secret" />
-        </h2>
-      </header>
-
-      <section class="container mt-5 mb-5">
-        <div class="row justify-content-between">
-          <router-link to="/about-us" class="col-3">About us</router-link>
-          <div class="col-3">Filter</div>
-          <Searcher @emitInput="onSearchByWord($event)" />
-        </div>
-      </section>
-      <TodoApp :wordToSearch="wordToSearch" />
-    </div>
+  <div class="container px-5 py-2">
+    <RouterView :wordToSearch="wordToSearch"> </RouterView>
+    <!-- <TodoApp class="rest" :wordToSearch="wordToSearch" /> -->
   </div>
 </template>
-
-
 
 <style>
 /* .container-wraper:before {
@@ -54,9 +33,14 @@ export default {
   opacity: 0.1;
 } */
 
-
 .container {
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.rest {
+  flex: 1;
 }
 
 header {
