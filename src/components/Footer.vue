@@ -9,8 +9,8 @@
         rounded
         class="ml-2"
       >
-        <router-link v-if="link.isRouterLink" :to="link.href"> {{link.label}} </router-link>
-        <a v-else :href="link.href" target="_blank"> {{link.label}} </a>
+        <router-link id="underline-links" v-if="link.isRouterLink" :to="link.href"> {{link.label}} </router-link>
+        <a id="underline-links" v-else :href="link.href" target="_blank"> {{link.label}} </a>
       </v-btn>
       <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
         {{ new Date().getFullYear() }} — <strong>ToDo App- Grupo 3</strong>
@@ -18,6 +18,7 @@
     </v-row>
   </v-footer>
 </template>
+
 <script>
 export default {
   data: () => ({
@@ -33,3 +34,9 @@ export default {
   }),
 };
 </script>
+
+<style>
+  #underline-links {
+    text-decoration: none;
+  }
+</style>

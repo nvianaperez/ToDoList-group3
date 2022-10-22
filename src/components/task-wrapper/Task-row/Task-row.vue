@@ -13,7 +13,10 @@ export default {
       description: null,
       editingDescription: false,
       editingText: false,
-    };
+      snackbar: false,
+      text: "Has eliminado una tarea",
+      timeout: 2000,
+    }
   },
   methods: {
     //DELETE THE TASK
@@ -56,7 +59,31 @@ export default {
   },
 };
 </script>
+
 <template>
+
+    <v-card
+    >
+      <v-snackbar
+        v-model = "snackbar"
+        :timeout = "timeout"
+        color="deep-purple"
+        elevation="100"
+      > 
+        {{ text }}
+          <template v-slot:action="{ attrs }">
+              <v-btn
+              color="pink"
+              text
+              v-bind="attrs"
+              @click="snackbar=false"
+              >
+              Close
+              </v-btn>
+          </template>
+      </v-snackbar>
+    </v-card>
+
   <div
     :id="'task' + task.id"
     class="deletedTask-action transition row mb-2 py-2 rounded task-container"
@@ -68,7 +95,7 @@ export default {
         <font-awesome-icon icon="fa-solid fa-pencil" />
       </div>
       <div class="text-center" @click.capture="deleteTask(task.id)">
-        <span class="deleteIcon text-danger">X</span>
+        <span class="deleteIcon text-danger" @click="snackbar=true">X</span>
       </div>
     </div>
     <!--This'll inject our task.text in our html-->
