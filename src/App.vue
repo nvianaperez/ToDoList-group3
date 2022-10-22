@@ -2,19 +2,23 @@
   <v-app>
     <v-main>
       <div class="container app">
-        <header class="d-flex flex-column border-0">
-          <div class="bg-info rounded">
-            <h2 class="text-start p-4" id="header">
-              Todo App
-              <font-awesome-icon icon="fa-solid fa-user-secret" />
-            </h2>
-          </div>
-          <div class="mt-1">
-            <MenuComponent @emitInput="onSearchByWord($event)" />
-          </div>
-        </header>
-        <Home class="content" :wordToSearch="wordToSearch" />
-        <Footer class="footer" />
+        <div class="d-flex flex-column justify-content-start">
+          <header class="d-flex flex-column border-0">
+            <div class="bg-info rounded">
+              <h2 class="text-start p-4" id="header">
+                Todo App
+                <font-awesome-icon icon="fa-solid fa-user-secret" />
+              </h2>
+            </div>
+            <div class="mt-1">
+              <MenuComponent @emitInput="onSearchByWord($event)" />
+            </div>
+          </header>
+          <Home class="content" :wordToSearch="wordToSearch" />
+        </div>
+        <div>
+          <Footer class="footer" />
+        </div>
       </div>
     </v-main>
   </v-app>
