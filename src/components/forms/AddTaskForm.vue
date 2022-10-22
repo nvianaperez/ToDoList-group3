@@ -1,31 +1,34 @@
 <script>
 import { faArrowsToDot } from '@fortawesome/free-solid-svg-icons';
-
+import { useTasksStore } from '../../store/useTasksStore';
 export default {
   name: 'form',
 
+  setup() {
+    const tasksStore = useTasksStore();
+
+    return { tasksStore };
+  },
   data() {
     return {
       task: '',
-      taskStatus: ['to-do', 'finished'],
-      idforTask: 3,
+      description: '',
+      taskTags: ['High priority', 'Medium priority', 'Low Priority'],
+      showUpdateDescription: false,
     };
   },
 
   methods: {
     createTask() {
-      if (this.task.length === 0) return;
-
-      const newTask = {
-        name: this.task,
-        description: this.description,
-        status: 'to-do',
-        completed: false,
-        editingName: false,
-        editingDescription: false,
-      };
-
       // Dispatch Action for new Task
+      this.tasksStore.createTask(this.task);
+      this.showUpdateDescription = true;
+    },
+    createDescription() {
+      const id = this.tasksStore.getLastTaskId;
+      console.log(id);
+      this.tasksStore.patchTask({ id, description: this.description });
+      this.$emit('closeForm', false);
     },
   },
 };
@@ -37,14 +40,38 @@ export default {
       type=" text"
       placeholder=" Add new task"
       class="col-8 form-control mb-2"
+      v-if="showUpdateDescription === false"
     />
     <input
       v-model="description"
       type=" textarea"
       placeholder=" Please specify the task"
       class="col-8 form-control mb-2"
+      v-else="showUpdateDescription === true"
     />
-    <slot></slot>
+    <div class="d-flex flex-row justify-content-end">
+      <v-btn
+        class="col-2 m-2"
+        v-if="!showUpdateDescription"
+        color="blue"
+        text
+        placeholder=" Please add a description to the task"
+        @click="createTask()"
+      >
+        Add Task
+      </v-btn>
+      <v-btn
+        class="col-2 m-2"
+        v-if="showUpdateDescription"
+        color="blue"
+        text
+        @click="createDescription()"
+      >
+        Add description
+      </v-btn>
+      <slot> </slot>
+    </div>
+
     <!-- <button @click="createTask" class="btn btn-primary rounded-2 btn-sm">
       + SUBMIT
     </button> -->
