@@ -23,15 +23,10 @@
             Add A Task
           </v-btn>
         </template>
-        <AddTaskForm>
-          <div class="d-flex flex-row justify-content-end">
-            <v-btn class="col-2 m-2" color="blue" text @click="dialog = false">
-              Add
-            </v-btn>
-            <v-btn class="col-2 m-2" color="white" text @click="dialog = false">
-              Cancel
-            </v-btn>
-          </div>
+        <AddTaskForm @closeForm="dialog = false">
+          <v-btn class="col-2 m-2" color="white" text @click="dialog = false">
+            Cancel
+          </v-btn>
         </AddTaskForm>
       </v-dialog>
     </div>
