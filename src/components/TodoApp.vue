@@ -10,14 +10,14 @@
       <v-dialog
         v-model="dialog"
         width="1000"
-        transition="dialog-bottom-transition"
+        transition="dialog-top-transition"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             v-bind="attrs"
             @click="dialog = true"
             class="mt-2"
-            color="red"
+            color="primary"
             dark
           >
             Add A Task
