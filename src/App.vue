@@ -14,7 +14,7 @@
               <MenuComponent @emitInput="onSearchByWord($event)" />
             </div>
           </header>
-          <Home class="content" :wordToSearch="wordToSearch" />
+          <TodoApp class="content" :wordToSearch="wordToSearch" />
         </div>
         <div>
           <Footer class="footer" />
@@ -24,14 +24,14 @@
   </v-app>
 </template>
 <script>
-import Home from './pages/Home.vue';
+import TodoApp from './pages/TodoApp.vue';
 import MenuComponent from './components/MenuComponent.vue';
 import Footer from './components/Footer.vue';
 
 export default {
   name: 'Organize your day',
 
-  components: { MenuComponent, Home, Footer },
+  components: { MenuComponent, TodoApp, Footer },
   data() {
     return {
       wordToSearch: '',
