@@ -3,14 +3,13 @@
     <v-main>
       <div class="container app">
         <div class="d-flex flex-column justify-content-start">
-          <header class="d-flex flex-column border-0">
-            <div class="bg-info rounded">
-              <h2 class="text-start p-4" id="header">
+          <header class="d-flex flex-column  border-0">
+            <div class="d-flex flex-nowrap justify-content-sm-between align-items-center rounded">
+              <h2 class="d-none d-sm-block text-start p-4" id="header">
                 Todo App
                 <font-awesome-icon icon="fa-solid fa-user-secret" />
               </h2>
-            </div>
-            <div class="mt-1">
+              <font-awesome-icon class="d-block d-sm-none px-4"  icon="fa-solid fa-user-secret" />
               <MenuComponent @emitInput="onSearchByWord($event)" />
             </div>
           </header>
@@ -46,12 +45,10 @@ export default {
 };
 </script>
 <style>
-.footer {
-  position: relative !important;
-  top: 200% !important;
-  align-content: flex-end;
-  max-height: 150px !important;
+header {
+  color: rgb(97, 74, 217);
 }
+
 .app {
   display: flex;
   flex-direction: column;

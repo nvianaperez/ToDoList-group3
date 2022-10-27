@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="mt-5 rounded-1 footer" color="grey darken-4" padless>
+  <v-footer class="mt-5 rounded-1 footer" padless>
     <v-row justify="center" no-gutters>
       <v-btn
         v-for="link in links"
@@ -35,7 +35,13 @@ export default {
 </script>
 
 <style>
-
+.footer {
+  position: relative !important;
+  top: 200% !important;
+  align-content: flex-end;
+  max-height: 150px !important;
+  background-color: #6D687A;
+}
   #underline-link {
     text-decoration: none;
   }
