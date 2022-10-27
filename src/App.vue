@@ -45,6 +45,13 @@ export default {
 };
 </script>
 <style>
+.footer {
+  position: relative !important;
+  top: 200% !important;
+  align-content: flex-end;
+  max-height: 150px !important;
+  background-color: #6D687A;
+}
 header {
   color: rgb(97, 74, 217);
 }
