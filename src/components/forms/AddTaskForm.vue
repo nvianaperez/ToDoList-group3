@@ -69,7 +69,7 @@ export default {
       >
         Add description
       </v-btn>
-      <slot> </slot>
+      <slot v-if="!showUpdateDescription"> </slot>
     </div>
 
     <!-- <button @click="createTask" class="btn btn-primary rounded-2 btn-sm">
