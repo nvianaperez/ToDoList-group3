@@ -1,10 +1,10 @@
 <template>
-  <section class="mt-2 mb-4">
+  <section class="">
     <div class="">
       <nav
-        class="d-flex flex-row justify-content-between navbar navbar-expand-lg navbar-white bg-info bg-gradient rounded"
+        class="d-flex  justify-content-sm-between pr-5 flex-nowrap sm-w-100 navbar navbar-expand-lg navbar-white rounded"
       >
-        <div>
+        <div class="mr-5">
           <button
             class="navbar-toggler"
             type="button"
@@ -16,20 +16,21 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <router-link to="/" class="nav-link active">Home</router-link>
+          <div class="collapse navbar-collapse mr-5" id="navbarNav">
+            <ul class="navbar-nav mt-3">
+              <li class="nav-item px-2 ">
+                <router-link to="/" class="active nav-options">Home</router-link>
               </li>
-              <li class="nav-item">
-                <router-link to="/about-us" class="nav-link active"
+              <li class="nav-item px-2 ">
+                <router-link to="/about-us" class="active nav-options"
                   >About us</router-link
                 >
               </li>
             </ul>
           </div>
         </div>
-        <Searcher @emitInput="onSearchByWord($event)" />
+      <Searcher @emitInput="onSearchByWord($event)" />
+        
       </nav>
     </div>
   </section>
@@ -48,3 +49,9 @@ export default {
   },
 };
 </script>
+<style >
+.nav-options {
+  color: rgb(97, 74, 217);
+  font-weight: bold;
+}
+</style>
