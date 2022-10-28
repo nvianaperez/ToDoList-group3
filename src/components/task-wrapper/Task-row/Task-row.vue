@@ -138,8 +138,16 @@ export default {
     </div>
 
     <!-- <div> <span @click="changeStatus(index)" >{{task.status}}</span></div> -->
-    <div class="col-12 date-wrapper d-flex justify-content-end">
-      <p class="col-2 date font-monospace pr-4" style="font-size: 10px">
+    <div class="col-12 date-wrapper d-flex justify-content-between">
+      <div class="col-8 offset-1">
+        <span class="d-flex flex-row align-items-center">
+          <p class="font-monospace add-tag">+</p>
+          <p class="font-monospace tags ml-1">#Tag</p>
+          <p class="font-monospace tags ml-1">#Tag</p>
+          <p class="font-monospace tags ml-1">#Tag</p>
+        </span>
+      </div>
+      <p class="col-2 date font-monospace pr-4">
         Created {{ formatDate(task.createdAt) }}
       </p>
     </div>
@@ -152,7 +160,8 @@ export default {
   max-height: 36px;
 }
 .task-container {
-  min-height: 86px;
+  height: 110px;
+  max-height: 110px;
   transition: 1s;
 }
 .edit-icon {
@@ -166,8 +175,21 @@ export default {
 .date {
   color: gray;
   text-align: end;
+  font-size: 10px;
 }
 .date-wrapper {
   height: 10px;
+}
+.tags {
+  text-align: end;
+  font-size: 10px;
+  color: gray;
+}
+.add-tag {
+  background-color: #6d687a;
+  border-radius: 5px;
+  color: white;
+  padding: 0px 5px;
+  cursor: pointer;
 }
 </style>
