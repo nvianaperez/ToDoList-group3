@@ -53,5 +53,6 @@ export default {
 .nav-options {
   color: rgb(97, 74, 217);
   font-weight: bold;
+  text-decoration: none;
 }
 </style>
