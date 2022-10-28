@@ -1,5 +1,6 @@
 <script>
 import { useTasksStore } from '../../../store/useTasksStore';
+import moment from 'moment';
 
 export default {
   setup() {
@@ -17,7 +18,11 @@ export default {
   },
   methods: {
     //DELETE THE TASK
-
+    formatDate(value) {
+      if (value) {
+        return moment(String(value)).format('MM/DD/YYYY  hh:mm ');
+      }
+    },
     startEditDescription() {
       this.editingDescription = true;
     },
@@ -133,6 +138,11 @@ export default {
     </div>
 
     <!-- <div> <span @click="changeStatus(index)" >{{task.status}}</span></div> -->
+    <div class="col-12 date-wrapper d-flex justify-content-end">
+      <p class="col-2 date font-monospace pr-4" style="font-size: 10px">
+        Created {{ formatDate(task.createdAt) }}
+      </p>
+    </div>
   </div>
 </template>
 <style>
@@ -152,5 +162,12 @@ export default {
 .edit-icon:hover {
   width: 18px;
   height: 18px;
+}
+.date {
+  color: gray;
+  text-align: end;
+}
+.date-wrapper {
+  height: 10px;
 }
 </style>
