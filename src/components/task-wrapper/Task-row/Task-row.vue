@@ -79,7 +79,7 @@ export default {
     :style="{ backgroundColor: task.completed ? '#6ad86a42' : '#ff6d536d' }"
   >
     <!-- V-IF V-ELSE  if task editing is false ( we are not editing), show the task into the span, else, show the imput)-->
-    <div class="col-1">
+    <div class="col-1 d-flex flex-column justify-content-center">
       <div class="text-primary text-center" @click="startEditing()">
         <font-awesome-icon class="edit-icon" icon="fa-solid fa-pencil" />
       </div>
