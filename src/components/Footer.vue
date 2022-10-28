@@ -12,7 +12,7 @@
         <router-link id="underline-link" v-if="link.isRouterLink" :to="link.href"> {{link.label}} </router-link>
         <a id="underline-link" v-else :href="link.href" target="_blank"> {{link.label}} </a>
       </v-btn>
-      <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
+      <v-col class="primary lighten-2 py-4 text-center text-light" cols="12">
         {{ new Date().getFullYear() }} — <strong>ToDo App- Grupo 3</strong>
       </v-col>
     </v-row>
