@@ -6,7 +6,7 @@
           <header class="d-flex flex-column  border-0">
             <div class="d-flex flex-nowrap justify-content-sm-between align-items-center rounded">
               <h2 class="d-none d-sm-block text-start p-4" id="header">
-                Todo App 
+                Todo App {{title}}
                 <font-awesome-icon icon="fa-solid fa-user-secret" />
               </h2>
               <font-awesome-icon class="d-block d-sm-none px-4"  icon="fa-solid fa-user-secret" />
@@ -35,6 +35,7 @@ export default {
     return {
       wordToSearch: '',
       oldWord: '',
+      title: import.meta.env.VITE_KEY
     };
   },
   methods: {
